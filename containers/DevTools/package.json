@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "name": "DevTools",
+  "main": "./DevTools.js"
+}

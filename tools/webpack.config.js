@@ -24,6 +24,7 @@ const AUTOPREFIXER_BROWSERS = [
 const JS_LOADER = {
   test: /\.jsx?$/,
   include: [
+    path.resolve(__dirname, '../containers'),
     path.resolve(__dirname, '../components'),
     path.resolve(__dirname, '../core'),
     path.resolve(__dirname, '../pages'),
@@ -114,6 +115,9 @@ const appConfig = merge({}, config, {
       }),
       new webpack.optimize.AggressiveMergingPlugin(),
     ]),
+    new webpack.DefinePlugin({
+      '__CLIENT__': JSON.stringify(true),
+    }),
     ...(WATCH ? [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin(),
@@ -170,6 +174,9 @@ const pagesConfig = merge({}, config, {
   externals: /^[a-z][a-z\.\-\/0-9]*$/i,
   plugins: config.plugins.concat([
     new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
+    new webpack.DefinePlugin({
+      '__CLIENT__': JSON.stringify(false),
+    }),
   ]),
   module: {
     loaders: [

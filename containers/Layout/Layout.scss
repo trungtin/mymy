@@ -1,0 +1,54 @@
+/**
+ * React Static Boilerplate
+ * https://github.com/koistya/react-static-boilerplate
+ * Copyright (c) Konstantin Tarkus (@koistya) | MIT license
+ */
+
+@import '../scss/variables.scss';
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: $body-bg;
+  color: $text-color;
+  font-family: $font-family-base;
+}
+
+.layout {
+  position: absolute;
+  margin: 0 auto;
+}
+
+.mdl-layout__content {
+  padding: 4rem 0;
+  width: 100%;
+  .main-content {
+    margin: 0 auto;
+    width: 100%;
+  }
+  @media (min-width: $screen-sm-min) {
+    .main-content {
+      width: calc($screen-sm-min - 18px);
+    }
+  }
+
+  @media (min-width: $screen-md-min) {
+    .main-content {
+      width: calc($screen-md-min - 22px);
+    }
+  }
+
+  @media (min-width: $screen-lg-min) {
+    .main-content {
+      width: calc($screen-lg-min - 30px);
+    }
+  }
+}
+
+
+
+/* Force Card element full widht */
+.mdl-cell .mdl-card {
+  width: 100%;
+}

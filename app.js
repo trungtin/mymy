@@ -9,14 +9,38 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import Location from './core/Location';
-import Layout from './components/Layout';
+import {default as createReduxStore} from './core/redux/create';
+import Layout from './containers/Layout';
+import {Provider} from 'react-redux';
+import DevTools from './containers/DevTools';
+import {updateDB} from './core/syncDB';
+import {updateLink} from './core/redux/modules/link';
+import {updateFeed} from './core/redux/modules/feed';
 
 const routes = {}; // Auto-generated on build. See tools/lib/routes-loader.js
 
 const route = async (path, callback) => {
   const handler = routes[path] || routes['/404'];
   const component = await handler();
-  await callback(<Layout>{React.createElement(component)}</Layout>);
+  const store = await createReduxStore();
+  setTimeout(() => updateDB(undefined, undefined, (response, linkData, feedData) => {
+    if (response.ok || response.every(arrEl => arrEl.ok)) {
+      linkData && store.dispatch(updateLink(linkData));
+      feedData && store.dispatch(updateFeed(feedData));
+      return;
+    }
+    console.log('Failed when try to update link and feed data.');
+  }), 4000);
+  await callback(
+    <Provider store={store}>
+      <div>
+        <Layout>{React.createElement(component)}</Layout>
+        { __DEV__ && __CLIENT__ &&
+          <DevTools />
+        }
+      </div>
+    </Provider>
+  );
 };
 
 function run() {

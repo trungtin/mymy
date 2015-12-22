@@ -1,0 +1,269 @@
+{
+  "widget": {
+    "0": {
+      "size": 32,
+      "data": {
+        "Social": {
+          "type": "link",
+          "data": ["facebook", "google", "twitter", "reddit"]
+        },
+        "News": {
+          "type": "link",
+          "data": ["cnn", "reuters", "bbc", "wsj"]
+        },
+        "Tech": {
+          "type": "link",
+          "data": ["techcrunch", "hackernews", "engadget", "thenextweb"]
+        }
+      }
+    }, 
+    "1": {
+      "size": 22,
+      "data": {
+        "Social": {
+          "type": "link",
+          "data": ["facebook", "google", "twitter", "reddit"]
+        },
+        "News": {
+          "type": "link",
+          "data": ["cnn", "reuters", "bbc", "wsj"]
+        },
+        "CNN": {
+          "type": "feed",
+          "data": "cnn#top"
+        },
+        "CNN Travel": {
+          "type": "feed",
+          "data": "cnn#travel"
+        }
+      }
+    },
+    "2": {
+      "size": 12,
+      "data": {
+        "Social": {
+          "type": "link",
+          "data": ["facebook", "google", "twitter", "reddit"]
+        },
+        "News": {
+          "type": "link",
+          "data": ["cnn", "reuters", "bbc", "wsj"]
+        }
+      }
+    }
+  },
+  "link": {
+    "facebook": {
+      "name": "Facebook",
+      "url": "//facebook.com/",
+      "icon": ""
+    },
+    "google": {
+      "name": "Google",
+      "url": "//google.com/",
+      "icon": "/brands_logo/google_logo.png"
+    },
+    "twitter": {
+      "name": "Twitter",
+      "url": "//twitter.com/",
+      "icon": "/brands_logo/twitter_logo_blue.png"
+    },
+    "reddit": {
+      "name": "Reddit",
+      "url": "//reddit.com/",
+      "icon": ""
+    },
+    "cnn": {
+      "name": "CNN",
+      "url": "//edition.cnn.com/",
+      "icon": "//i.cdn.turner.com/cnn/.e/img/3.0/global/misc/apple-touch-icon.png"
+    },
+    "reuters": {
+      "name": "Reuters",
+      "url": "//www.reuters.com/",
+      "icon": "/brands_logo/reuters_logo.png"
+    },
+    "bbc": {
+      "name": "BBC",
+      "url": "//www.bbc.co.uk/news",
+      "icon": ""
+    },
+    "wsj": {
+      "name": "WSJ",
+      "url": "//www.wsj.com/",
+      "icon": "//www.wsj.com/android-chrome-192x192.png"
+    },
+    "techcrunch": {
+      "name": "TechCrunch",
+      "url": "//www.techcrunch.com/",
+      "icon": "//s0.wp.com/wp-content/themes/vip/techcrunch-2013/assets/images/homescreen_TCIcon_ipad_2x.png"
+    },
+    "hackernews": {
+      "name": "Hacker News",
+      "url": "//news.ycombinator.com/",
+      "icon": ""
+    },
+    "engadget": {
+      "name": "Engadget",
+      "url": "//www.engadget.com",
+      "icon": "//www.blogsmithmedia.com/www.engadget.com/assets-de656b4889f628881dabd59b88d24460/images/apple-touch-icon-144x144.png"
+    },
+    "thenextweb": {
+      "name": "The Next Web",
+      "url": "//www.thenextweb.com",
+      "icon": ""
+    }
+  },
+  "feed": {
+    "youtube": {
+      "Channel": {
+        "url": "https://www.youtube.com/feeds/videos.xml?channel_id="
+      },
+      "User": {
+        "url": "https://www.youtube.com/feeds/videos.xml?user="
+      },
+      "Playlist": {
+        "url": "https://www.youtube.com/feeds/videos.xml?playlist_id="
+      }
+    },
+    "cnn": {
+      "top": {
+        "url": "http://rss.cnn.com/rss/edition.rss"
+      },
+      "world": {
+        "url": "http://rss.cnn.com/rss/edition_world.rss"
+      },
+      "africa": {
+        "url": "http://rss.cnn.com/rss/edition_africa.rss"
+      },
+      "americas": {
+        "url": "http://rss.cnn.com/rss/edition_americas.rss"
+      },
+      "asia": {
+        "url": "http://rss.cnn.com/rss/edition_asia.rss"
+      },
+      "europe": {
+        "url": "http://rss.cnn.com/rss/edition_europe.rss"
+      },
+      "middle East": {
+        "url": "http://rss.cnn.com/rss/edition_meast.rss"
+      },
+      "u.s.": {
+        "url": "http://rss.cnn.com/rss/edition_us.rss"
+      },
+      "money": {
+        "url": "http://rss.cnn.com/rss/money_news_international.rss"
+      },
+      "technology": {
+        "url": "http://rss.cnn.com/rss/edition_technology.rss"
+      },
+      "space": {
+        "url": "http://rss.cnn.com/rss/edition_space.rss"
+      },
+      "entertainment": {
+        "url": "http://rss.cnn.com/rss/edition_entertainment.rss"
+      },
+      "sport": {
+        "url": "http://rss.cnn.com/rss/edition_sport.rss"
+      },
+      "football": {
+        "url": "http://rss.cnn.com/rss/edition_football.rss"
+      },
+      "golf": {
+        "url": "http://rss.cnn.com/rss/edition_golf.rss"
+      },
+      "motorsport": {
+        "url": "http://rss.cnn.com/rss/edition_motorsport.rss"
+      },
+      "tennis": {
+        "url": "http://rss.cnn.com/rss/edition_tennis.rss"
+      },
+      "travel": {
+        "url": "http://rss.cnn.com/rss/edition_travel.rss"
+      },
+      "video": {
+        "url": "http://rss.cnn.com/rss/cnn_freevideo.rss"
+      },
+      "latest": {
+        "url": "http://rss.cnn.com/rss/cnn_latest.rss"
+      }
+    },
+    "polygon": {
+      "default": {
+        "url": "http://www.polygon.com/rss/index.xml"
+      },
+      "news": {
+        "url": "http://www.polygon.com/rss/group/news/index.xml"
+      },
+      "reviews": {
+        "url": "http://www.polygon.com/rss/group/reviews/index.xml"
+      },
+      "features": {
+        "url": "http://www.polygon.com/rss/group/features/index.xml"
+      },
+      "videos": {
+        "url": "http://www.polygon.com/rss/group/videos/index.xml"
+      },
+      "nintendo": {
+        "url": "http://www.polygon.com/rss/group/nintendo/index.xml"
+      },
+      "pc": {
+        "url": "http://www.polygon.com/rss/group/pc/index.xml"
+      },
+      "ps4": {
+        "url": "http://www.polygon.com/rss/group/ps4/index.xml"
+      },
+      "xbox-one": {
+        "url": "http://www.polygon.com/rss/group/xbox-one/index.xml"
+      },
+      "mobile": {
+        "url": "http://www.polygon.com/rss/group/mobile/index.xml"
+      }
+    },
+    "kotaku": {
+      "vip": {
+        "url": "http://kotaku.com/rss/vip"
+      }
+    },
+    "lifehacker": {
+      "vip": {
+        "url": "http://lifehacker.com/rss/vip"
+      }
+    },
+    "hackerspace": {
+      "vip": {
+        "url": "http://hackerspace.kinja.com/rss/vip"
+      }
+    },
+    "deadspin": {
+      "vip": {
+        "url": "http://deadspin.com/rss/vip"
+      }
+    },
+    "whitenoise": {
+      "vip": {
+        "url": "http://whitenoise.kinja.com/rss/vip"
+      }
+    },
+    "gizmodo": {
+      "vip": {
+        "url": "http://gizmodo.com/rss/vip"
+      }
+    },
+    "io9": {
+      "vip": {
+        "url": "http://io9.gizmodo.com/rss/vip"
+      }
+    },
+    "jezebel": {
+      "vip": {
+        "url": "http://jezebel.com/rss/vip"
+      }
+    },
+    "sploid": {
+      "vip": {
+        "url": "http://sploid.gizmodo.com/rss/vip"
+      }
+    }
+  }
+}

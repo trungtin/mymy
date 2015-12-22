@@ -1,0 +1,19 @@
+.checkmark {
+  position: absolute;
+  right: -7px;
+  bottom: -7px;
+  display:inline-block;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #42ff4b;
+  &:after{
+    content: '';
+    display: block;
+    width: 6px;
+    height: 14px;
+    border: solid #fff;
+    border-width: 0 5px 5px 0;
+    transform: translate(8px, 2px) rotate(45deg);
+  }
+}

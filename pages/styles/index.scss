@@ -1,0 +1,46 @@
+.control-block {
+  display: flex;
+  margin: 2rem auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.mdl-grid{
+  box-sizing: border-box;
+  padding: 0;
+  &.grid__1x {
+    height: 200px;
+    &>.mdl-cell>.mdl-card {
+      height: 200px;
+    }
+  }
+  &.grid__2x {
+    height: 432px;
+    &>.mdl-cell>.mdl-card {
+      height: 416px;
+    }
+  }
+  &.grid__3x {
+    height: 664px;
+    &>.mdl-cell>.mdl-card {
+      height: 632px;
+    }
+  }
+  &.grid__1x, &.grid__2x, &.grid__3x {
+    &>.mdl-cell {
+      margin-top: 0;
+    }
+  }
+}
+
+.zoom-out-icons {
+  position: absolute;
+  cursor: pointer;
+  top: 12px;
+  right: 12px;
+  opacity: 0.35;
+  transition: opacity 0.3s ease-in-out;
+  &:hover {
+    opacity: 1;
+  }
+}

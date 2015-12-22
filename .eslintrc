@@ -1,10 +1,12 @@
 {
   "extends": "airbnb",
   "globals": {
-    "__DEV__": true
+    "__DEV__": true,
+    "__CLIENT__": true
   },
   "rules": {
     "react/jsx-quotes": 0,
-    "jsx-quotes": [2, "prefer-double"]
+    "jsx-quotes": [2, "prefer-double"],
+    "no-unused-expressions": [2, { allowShortCircuit: true, allowTernary: true }]
   }
 }

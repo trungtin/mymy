@@ -8,7 +8,7 @@ import glob from 'glob';
 import { join, dirname } from 'path';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
-import Html from '../components/Html';
+import Html from '../containers/Html';
 import task from './lib/task';
 import fs from './lib/fs';
 
