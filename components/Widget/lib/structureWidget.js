@@ -37,7 +37,7 @@ function merge(data, depth, curMaxRow, curMaxCol) {
     }
 
 
-    const curEl = <Cell col={cur.col * 12 / curMaxCol} key={`cell__${depth}-0`}>{cur.el}</Cell>;
+    const curEl = <Cell col={cur.col * 12 / curMaxCol} key={`cell__${depth}-${curIndex}`}>{cur.el}</Cell>;
 
     if (cur.col <= curMaxCol) {
       const mergedEl = merge(arr.slice(curIndex + 1), depth + 1, cur.row, curMaxCol - cur.col);
@@ -46,8 +46,7 @@ function merge(data, depth, curMaxRow, curMaxCol) {
 
       if (curMergeSkip > 0) {
         return prev.concat(<Grid className={`grid__${cur.row}x`} key={`grid__${depth}-${prev.length || 0}`}>{[curEl, mergedEl[0]]}</Grid>);
-      }
-      else {
+      } else {
         totalMergeSkip++;
         return depth > 0 ? prev.concat(<Grid className={`grid__${cur.row}x`} key={`grid__${depth}-${prev.length || 0}`}>{curEl}</Grid>) : prev.concat(curEl);
       }
@@ -60,7 +59,7 @@ function merge(data, depth, curMaxRow, curMaxCol) {
     }
   }, []);
 
-  return [(<Cell col={curMaxCol * 12 / maxCol} key={`cell__${depth}-1`}>{result}</Cell>), totalMergeSkip];
+  return [(<Cell col={curMaxCol * 12 / maxCol} key={`cell__${depth}`}>{result}</Cell>), totalMergeSkip];
 }
 
 export default (data, thisArg) => merge(distribute(data, thisArg), 0, maxRow, maxCol)[0];

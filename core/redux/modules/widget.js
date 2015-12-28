@@ -9,6 +9,7 @@ const REMOVE_WIDGET = 'mymy/widget/REMOVE_WIDGET';
 const REMOVE_TAB = 'mymy/widget/REMOVE_TAB';
 const REMOVE_LINK = 'mymy/widget/REMOVE_LINK';
 const RENAME_TAB = 'mymy/widget/RENAME_TAB';
+const ERROR_HAPPEN = 'mymy/widget/ERROR_HAPPEN';
 
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
 
 export default function widget(state = initialState, action = {}) {
   if (!action.type.startsWith('@@') && action.type !== ADD_WIDGET && !action.target) {
+    console.log('Error happen, ', action);
     return {...state, error: 'Target required'};
   }
 
@@ -44,7 +46,7 @@ export default function widget(state = initialState, action = {}) {
   case RENAME_TAB:
     return update(state, {error: {$set: null}, data: {[action.target]: {data: {$apply: (oldData) => {
       let newData;
-      Object.keys.oldData.forEach(oldKey => {
+      Object.keys(oldData).forEach(oldKey => {
         if (oldKey === action.targetTab) {
           newData[action.data] = oldData[oldKey];
         } else {
@@ -56,8 +58,8 @@ export default function widget(state = initialState, action = {}) {
 
   case REMOVE_TAB:
     return update(state, {error: {$set: null}, data: {[action.target]: {data: {$apply: (oldData) => {
-      let newData;
-      Object.keys.oldData.forEach(oldKey => {
+      const newData = {};
+      Object.keys(oldData).forEach(oldKey => {
         if (oldKey !== action.targetTab) {
           newData[oldKey] = oldData[oldKey];
         }
@@ -69,7 +71,7 @@ export default function widget(state = initialState, action = {}) {
     if (state.data[action.target]) {
       return update(state, {error: {$set: null}, data: {$apply: (data) => {
         let index = action.target;
-        let newData = {[index]: action.data};
+        const newData = {[index]: action.data};
         while (data[index]) {
           newData[index + 1] = data[index];
           index++;
@@ -80,14 +82,16 @@ export default function widget(state = initialState, action = {}) {
     return update(state, {error: {$set: null}, data: {[action.target]: {$set: action.data}}});
   case REMOVE_WIDGET:
     return update(state, {error: {$set: null}, data: {$apply: (oldData) => {
-      let newData;
-      Object.keys.oldData.forEach(oldKey => {
+      let newData = {};
+      Object.keys(oldData).forEach(oldKey => {
         if (oldKey !== action.target) {
           newData[oldKey] = oldData[oldKey];
         }
       });
       return newData;
     }}});
+  case ERROR_HAPPEN:
+    return {...state, error: action.error};
   default:
     return state;
   }
@@ -142,4 +146,9 @@ export function addWidget(target, data) {
 
 export function removeWidget(target) {
   return { type: REMOVE_WIDGET, target};
+}
+
+
+export function databaseError(err) {
+  return { type: ERROR_HAPPEN, error: err};
 }

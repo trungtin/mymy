@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 
 const FeedsReadingModalContent = (props) => {
+  console.log(props.article)
   return (
     <article>
       <h4>{props.title}</h4>

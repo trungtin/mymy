@@ -1,0 +1,61 @@
+@import '../../../../containers/scss/variables.scss';
+
+.stacking-layer {
+  transition: all 0.3s ease-in-out;
+  &:after, &:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    visibility: hidden;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+    transition: all 0.3s ease-in-out;
+  }
+  &:hover {
+    transform: scale(0.9);
+    transform-origin: bottom;
+    &:after {
+      visibility: visible;
+      transform: scale(0.85) translateY(-20%);
+    }
+    &:before {
+      visibility: visible;
+      transform: scale(0.75) translateY(-40%);
+    }
+  }
+}
+
+.feed-view__info-wrapper {
+  position: absolute;
+  height: 15rem;
+  width: 100%;
+  bottom: 65px;
+  left: 0;
+  overflow: hidden;
+  .feed-view__sub-feed-selector {
+    position:relative;
+    height: 15rem;
+    overflow: hidden;
+    width: 20%;
+    display: inline-block;
+  }
+  .feed-view__info {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    display: inline-block;
+    width: auto;
+  }
+  .feed-view__info-content, .feed-view__sub-feed-selector-content {
+    cursor: pointer;
+    margin: 0;
+    overflow-y: scroll;
+    height: 15rem;
+    padding: 0 1.5rem;
+    width: calc(100% + 20px);
+    list-style: none;
+  }
+}

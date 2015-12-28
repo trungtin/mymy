@@ -36,7 +36,7 @@ export default class extends Component {
           <i className="material-icons zoom-out-icons" onClick={() => {
             const allowedWidth = window.innerWidth > 1600 ? ['80%', '100%'] : ['100%'];
             this.setState({extendedWidth: allowedWidth[allowedWidth.indexOf(this.state.extendedWidth) + 1]});
-          }}>zoom_out_map</i>
+          }}>settings_ethernet</i>
         }
       </Content>
     );

@@ -1,10 +1,13 @@
 import React, {PropTypes} from 'react';
 import LinkView from './components/LinkView';
+import {Button} from 'react-mdl';
 
 const AddLinkModalContent = (props) => <div>
   <LinkView linkList={props.linkList} selectLinkToAdd={props.selectLinkToAdd} toBeAddedLinkList={props.toBeAddedLinkList} />
-  <button onClick={props.addLinkToWidget}>Save</button>
-  <button onClick={props.closeModal}>close</button>
+  <div className="modal-footer">
+    <Button raised colored onClick={(event) => props.addLinkToWidget(event)}>Save</Button>
+    <Button onClick={props.closeModal}>Cancel</Button>
+  </div>
 </div>;
 
 AddLinkModalContent.propTypes = {

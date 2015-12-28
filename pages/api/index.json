@@ -86,7 +86,7 @@
     "bbc": {
       "name": "BBC",
       "url": "//www.bbc.co.uk/news",
-      "icon": ""
+      "icon": "//www.bbc.co.uk/apple-touch-icon.png"
     },
     "wsj": {
       "name": "WSJ",
@@ -116,17 +116,26 @@
   },
   "feed": {
     "youtube": {
+      "meta": {
+        "category": "video"
+      },
       "Channel": {
+        "require": ["Channel"],
         "url": "https://www.youtube.com/feeds/videos.xml?channel_id="
       },
       "User": {
+        "require": ["User"],
         "url": "https://www.youtube.com/feeds/videos.xml?user="
       },
       "Playlist": {
+        "require": ["Playlist"],
         "url": "https://www.youtube.com/feeds/videos.xml?playlist_id="
       }
     },
     "cnn": {
+      "meta": {
+        "category": "news"
+      },
       "top": {
         "url": "http://rss.cnn.com/rss/edition.rss"
       },
@@ -189,6 +198,9 @@
       }
     },
     "polygon": {
+      "meta": {
+        "category": ""
+      },
       "default": {
         "url": "http://www.polygon.com/rss/index.xml"
       },
@@ -221,46 +233,73 @@
       }
     },
     "kotaku": {
+      "meta": {
+        "category": ""
+      },
       "vip": {
         "url": "http://kotaku.com/rss/vip"
       }
     },
     "lifehacker": {
+      "meta": {
+        "category": ""
+      },
       "vip": {
         "url": "http://lifehacker.com/rss/vip"
       }
     },
     "hackerspace": {
+      "meta": {
+        "category": ""
+      },
       "vip": {
         "url": "http://hackerspace.kinja.com/rss/vip"
       }
     },
     "deadspin": {
+      "meta": {
+        "category": ""
+      },
       "vip": {
         "url": "http://deadspin.com/rss/vip"
       }
     },
     "whitenoise": {
+      "meta": {
+        "category": ""
+      },
       "vip": {
         "url": "http://whitenoise.kinja.com/rss/vip"
       }
     },
     "gizmodo": {
+      "meta": {
+        "category": ""
+      },
       "vip": {
         "url": "http://gizmodo.com/rss/vip"
       }
     },
     "io9": {
+      "meta": {
+        "category": ""
+      },
       "vip": {
         "url": "http://io9.gizmodo.com/rss/vip"
       }
     },
     "jezebel": {
+      "meta": {
+        "category": ""
+      },
       "vip": {
         "url": "http://jezebel.com/rss/vip"
       }
     },
     "sploid": {
+      "meta": {
+        "category": ""
+      },
       "vip": {
         "url": "http://sploid.gizmodo.com/rss/vip"
       }

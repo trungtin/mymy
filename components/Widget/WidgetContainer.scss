@@ -17,3 +17,43 @@
     transform: translate(8px, 2px) rotate(45deg);
   }
 }
+
+.modal-footer {
+  position: absolute;
+  bottom: 0;
+  padding: 2rem;
+  right: 2rem;
+  left: 2rem;
+  padding: 1rem;
+  border-top: 1px solid rgb(224,224,224);
+}
+
+.smaller_mdl-textfield {
+  padding: 0;
+  .mdl-textfield__label {
+    top: 4px;
+    &:after {
+      bottom: 0;
+    }
+  }
+}
+
+.add-widget__cell {
+  text-align: center;
+  height: 4rem;
+  background-color: white;
+  opacity: 0.4;
+  cursor: pointer;
+  transition: opacity 0.3s, box-shadow 0.3s;
+  &:hover {
+    opacity: 0.9;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    .material-icons {
+      opacity: 1;
+    }
+  }
+  .material-icons {
+    margin: 0.5rem;
+    font-size: 3rem;
+  }
+}

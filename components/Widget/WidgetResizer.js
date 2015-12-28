@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import {editSize as _editSize} from '../../core/redux/modules/widget.js';
 
 const WidgetResizer = (props) => {
-  console.log('WR: ', props)
   const editSize = (sizeChange) => {
     props._editSize({target: props.widgetKey, data: sizeChange});
   };

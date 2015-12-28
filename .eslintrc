@@ -7,6 +7,7 @@
   "rules": {
     "react/jsx-quotes": 0,
     "jsx-quotes": [2, "prefer-double"],
-    "no-unused-expressions": [2, { allowShortCircuit: true, allowTernary: true }]
+    "no-unused-expressions": [2, { allowShortCircuit: true, allowTernary: true }],
+    "no-else-return": 0,
   }
 }

@@ -1,13 +1,14 @@
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
-import {Grid, Cell} from 'react-mdl';
+import {Grid, Cell, Icon, Button} from 'react-mdl';
 import structureWidget from './lib/structureWidget';
 import Modal from 'react-modal';
 import './WidgetContainer.scss';
 import './Modal.scss';
-import LinkList from '../LinkList';
-import {addLinkToWidget as _addLinkToWidget} from './lib/actions';
+import {addLinkToWidget as _addLinkToWidget, addTabToWidget as _addTabToWidget, addWidget as _addWidget} from './lib/actions';
 import {AddLinkModalContent, AddTabModalContent} from './ModalContent';
+import Tooltip from '../Tooltip';
+import NumberSelectable from '../NumberSelectable';
 
 @connect(
   state => ({data: state.widget.data})
@@ -25,10 +26,12 @@ export default class WidgetContainer extends Component {
     this.state = {
       modalOpen: false,
       modalTarget: false,
+      modalContent: {},
       data: undefined,
       linkList: [],
       feedList: [],
       toBeAddedLinkList: [],
+      stashedModal: [],
     };
   }
 
@@ -37,7 +40,6 @@ export default class WidgetContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('is same: ', nextProps.data === this.props.data)
     if (nextProps.data !== this.props.data) {
       this.setState({data: nextProps.data, toBeAddedLinkList: []});
     }
@@ -77,7 +79,15 @@ export default class WidgetContainer extends Component {
     this.setState({data: containerData, linkList, feedList});
   }
 
-  openModal(event, modalContent, widgetKey, tabKey) {
+  openModal(event, modalContent, widgetKey, tabKey, stashLastModal) {
+    if (stashLastModal) {
+      this.setState({stashedModal: [...this.state.stashedModal, {
+        modalTarget: this.state.modalTarget,
+        modalTargetTab: this.state.modalTargetTab,
+        modalContent: this.state.modalContent,
+        toBeAddedLinkList: this.state.toBeAddedLinkList,
+      }]});
+    }
     if (widgetKey !== this.state.modalTarget) {
       // reset toBeAddedLinkList
       return this.setState({modalOpen: true, modalTarget: widgetKey, modalTargetTab: tabKey, modalContent, toBeAddedLinkList: []});
@@ -85,6 +95,9 @@ export default class WidgetContainer extends Component {
     return this.setState({modalOpen: true, modalTarget: widgetKey, modalTargetTab: tabKey, modalContent});
   }
   closeModal() {
+    if (this.state.stashedModal.length) {
+      return this.setState(this.state.stashedModal.pop());
+    }
     this.setState({modalOpen: false});
   }
 
@@ -99,14 +112,29 @@ export default class WidgetContainer extends Component {
     return this.setState({toBeAddedLinkList: arr});
   }
 
-  async mapLink(array) {
+  mapLink(array) {
     return array.map(link => this.state.linkList[link]);
   }
 
-  async addLinkToWidget(event, forcedTarget, forcedTargetTab) {
-    const mappedToBeAddedLinkList = await this.mapLink(this.state.toBeAddedLinkList);
+  addLinkToWidget(event, forcedTarget, forcedTargetTab) {
+    const mappedToBeAddedLinkList = this.mapLink(this.state.toBeAddedLinkList);
     _addLinkToWidget(this.props.dispatch, forcedTarget || this.state.modalTarget, forcedTargetTab || this.state.modalTargetTab, this.state.toBeAddedLinkList, mappedToBeAddedLinkList);
     this.closeModal();
+  }
+
+  addLinkTabToWidget(event, targetTab) {
+    const mappedToBeAddedLinkList = this.mapLink(this.state.toBeAddedLinkList);
+    _addTabToWidget(this.props.dispatch, this.state.modalTarget, targetTab, {type: 'link', data: this.state.toBeAddedLinkList}, {type: 'link', data: mappedToBeAddedLinkList});
+    this.closeModal();
+  }
+
+  addFeedTabToWidget(event, targetTab, data) {
+    _addTabToWidget(this.props.dispatch, this.state.modalTarget, targetTab, {type: 'feed', data: data.location}, {type: 'feed', data: { url: data.url}});
+    this.closeModal();
+  }
+
+  createNewWidget(event, size) {
+    _addWidget(this.props.dispatch, {size: size.join(''), data: {}});
   }
 
   render() {
@@ -115,11 +143,25 @@ export default class WidgetContainer extends Component {
     if (this.state.data && Object.keys(this.state.data).length) {
       gridContent = structureWidget(this.state.data, this);
     }
-    console.log(this.state.modalContent);
     return (
       <div id="modal__docker">
         <Grid>
           { gridContent !== undefined && gridContent }
+          <Tooltip toggleOnClick content={
+            <div>
+              <NumberSelectable initial={3} range={[1, 3]} style={{display: 'inline'}} ref="newWidgetRow"/>
+              <NumberSelectable initial={2} range={[1, 4]} style={{display: 'inline'}} ref="newWidgetCol" />
+              <Button raised accent ripple
+                onClick={(event) =>
+                  ::this.createNewWidget(event, [this.refs.newWidgetRow.getValue(), this.refs.newWidgetCol.getValue()])
+                }>Create</Button>
+              <Button onClick={() => this.refs.newWidgetConfirmTooltip.toggleShowing()} style={{color: 'white'}}>Cancel</Button>
+            </div>
+          } noTriangle style={{width: '100%'}} position="n" ref="newWidgetConfirmTooltip">
+            <Cell col={12} className="add-widget__cell">
+              <Icon name="add_circle"/>
+            </Cell>
+          </Tooltip>
         </Grid>
 
         <Modal isOpen={this.state.modalOpen} onRequestClose={::this.closeModal}
@@ -133,20 +175,21 @@ export default class WidgetContainer extends Component {
             },
           }}
         >
-          { this.state.modalContent === 0 &&
+          { this.state.modalContent.element === 0 &&
             <AddLinkModalContent linkList={this.state.linkList} toBeAddedLinkList={this.state.toBeAddedLinkList}
               selectLinkToAdd={::this.selectLinkToAdd} addLinkToWidget={::this.addLinkToWidget} closeModal={::this.closeModal}
             />
           }
-          { this.state.modalContent === 1 &&
+          { this.state.modalContent.element === 1 &&
             <AddTabModalContent link_linkList={this.state.linkList} link_toBeAddedLinkList={this.state.toBeAddedLinkList}
-              link_selectLinkToAdd={::this.selectLinkToAdd} link_addLinkToWidget={::this.addLinkToWidget} closeModal={::this.closeModal}
-              feed_feedList={this.state.feedList}
+              link_selectLinkToAdd={::this.selectLinkToAdd} link_addLinkTabToWidget={::this.addLinkTabToWidget} closeModal={::this.closeModal}
+              feed_feedList={this.state.feedList} feed_addFeedTabToWidget={::this.addFeedTabToWidget} openModal={::this.openModal}
+              tabList={Object.keys(this.props.data[this.state.modalTarget].data)}
             />
           }
 
-          { typeof this.state.modalContent === 'object' &&
-            this.state.modalContent
+          { typeof this.state.modalContent.element === 'object' &&
+            this.state.modalContent.element
           }
         </Modal>
       </div>

@@ -1,0 +1,14 @@
+@keyframes slidein {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-50%, 0);
+  }
+}
+
+.material__tooltip {
+  animation: slidein 0.5s forwards;
+}
