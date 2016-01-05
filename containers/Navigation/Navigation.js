@@ -11,13 +11,14 @@ import {Header, HeaderRow, Navigation as NavigationMDL} from 'react-mdl'
 
 function Navigation() {
   return (
-    <Header>
-      <HeaderRow title="Mymy">
-        <NavigationMDL className="nav-link_list">
-          <a href="/" onClick={Link.handleClick}>Home</a>
-          <a href="/about" onClick={Link.handleClick}>About</a>
-        </NavigationMDL>
-      </HeaderRow>
+    <Header scroll transparent style={{position: 'relative'}}>
+      <div className="main-logo"></div>
+      <nav className="nav-link_list--left">
+
+      </nav>
+      <nav className="nav-link_list--right">
+
+      </nav>
     </Header>
   );
 }

@@ -1,0 +1,44 @@
+@import '../../_bits.scss';
+
+.feed-reading__wrapper {
+  position: relative;
+  width: 100%;
+  margin: 20px auto 80px auto;
+  @mixin breakpoint phablet {
+    width: 90%;
+  }
+  @mixin breakpoint laptop {
+    width: 75%;
+  }
+  blockquote {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 35px;
+    padding-left: 15px;
+    border-left: 3px solid #ccc;
+    &:before, &:after {
+      content: none;
+    }
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  .has-image {
+    text-align: center;
+    & + p em:only-child {
+      width: 100%;
+      text-align: center;
+      display: inline-block;
+    } 
+  }
+  .has-video {
+    text-align: center;
+  }
+}
+.feed-reading__title {
+  font-size: 2.75rem;
+  font-weight: 300;
+  line-height: 3.25rem;
+  margin: 1rem 0;
+}

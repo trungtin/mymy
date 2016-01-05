@@ -3279,7 +3279,7 @@ MaterialLayout.prototype.resetPanelState_ = function (panels) {
    */
 MaterialLayout.prototype.init = function () {
     if (this.element_) {
-        var directChildren = this.element_.childNodes;
+        var directChildren = this.element_.childNodes[0].childNodes;
         var numChildren = directChildren.length;
         for (var c = 0; c < numChildren; c++) {
             var child = directChildren[c];

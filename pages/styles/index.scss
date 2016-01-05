@@ -10,25 +10,33 @@
   padding: 0;
   &.grid__1x {
     height: 200px;
-    &>.mdl-cell>.mdl-card {
+    &>.mdl-cell {
       height: 200px;
     }
   }
   &.grid__2x {
-    height: 432px;
-    &>.mdl-cell>.mdl-card {
-      height: 416px;
+    height: 400px;
+    &>.mdl-cell {
+      height: 400px;
     }
   }
   &.grid__3x {
-    height: 664px;
-    &>.mdl-cell>.mdl-card {
-      height: 632px;
+    height: 600px;
+    &>.mdl-cell {
+      height: 600px;
     }
   }
   &.grid__1x, &.grid__2x, &.grid__3x {
+    justify-content: space-around;
     &>.mdl-cell {
-      margin-top: 0;
+      position: relative;
+      margin: 0;
+      &>.mdl-card {
+        min-height: initial;
+        position: absolute;
+        top: 0;
+        bottom: 18px;
+      }
     }
   }
 }

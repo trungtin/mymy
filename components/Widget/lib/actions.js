@@ -69,7 +69,6 @@ export function addWidget(dispatch, data) {
 }
 
 export function removeWidget(dispatch, widget) {
-  console.log(widget);
   db && db.get('widget').then(doc => {
     delete doc.data[widget];
     return db.put(doc);
@@ -79,5 +78,18 @@ export function removeWidget(dispatch, widget) {
     }
   }).then(() => {
     dispatch(widgetActions.removeWidget(widget));
+  }).catch(err => dispatch(widgetActions.databaseError(err)));
+}
+
+export function editWidgetSize(dispatch, widget, newSize) {
+  db && db.get('widget').then(doc => {
+    doc.data[widget].size = newSize;
+    return db.put(doc);
+  }).then(response => {
+    if (response.ok !== true) {
+      throw Error('Error while add new widget');
+    }
+  }).then(() => {
+    dispatch(widgetActions.editSize(widget, newSize));
   }).catch(err => dispatch(widgetActions.databaseError(err)));
 }

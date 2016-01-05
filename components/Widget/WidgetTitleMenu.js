@@ -1,10 +1,11 @@
 import React, {Component, PropTypes} from 'react';
-import {Menu, MenuItem, IconButton, Icon, CardTitle, FABButton, Tabs, Tab, Button} from 'react-mdl';
+import {Menu, MenuItem, IconButton, Icon, CardTitle, FABButton, Tabs, Tab, Button } from 'react-mdl';
 import {connect} from 'react-redux';
 import {findDOMNode} from 'react-dom';
 import Tooltip from '../Tooltip';
-import {removeTab, removeWidget} from './lib/actions';
+import {removeTab, removeWidget, editWidgetSize} from './lib/actions';
 import './WidgetTitleMenu.scss';
+import NumberSelectable from '../NumberSelectable';
 
 let curId = 1;
 
@@ -17,15 +18,18 @@ export default class WidgetTitleMenu extends Component {
     deletingTab: PropTypes.bool,
     widgetKey: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
+    size: PropTypes.array.isRequired,
   }
 
   constructor() {
     super();
-    this.state = {
+    this.initialState = {
       deletingTab: false,
       confirmDeleteTooltipPos: null,
+      editWidgetSizeTooltipPos: null,
       deleteTab: null,
     };
+    this.state = this.initialState;
   }
 
   calcTooltipPosition(target, pos = 'n') {
@@ -63,6 +67,27 @@ export default class WidgetTitleMenu extends Component {
                 <Button style={{color: 'white'}} onClick={() => this.setState({confirmDeleteTooltipPos: null, deleteTab: null})}><h6 style={{margin: 0}}>Cancel</h6></Button>
               </div>} noTriangle={!this.state.deleteTab} style={this.state.confirmDeleteTooltipPos} tooltipStyle={{width: 280}} position={this.state.deleteTab && 'n' || 's'}/>
           }
+          {
+            this.state.editWidgetSizeTooltipPos &&
+            <Tooltip content={
+              <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <div style={{display: 'flex', alignItems: 'center'}}>
+                  <span>New widget size: </span>
+                  <NumberSelectable initial={this.props.size[0]} range={[1, 4]} style={{display: 'inline'}} ref="newWidgetSizeCol" />
+                  <span> columns, </span>
+                  <NumberSelectable initial={this.props.size[1]} range={[1, 3]} style={{display: 'inline'}} ref="newWidgetSizeRow"/>
+                  <span> rows.</span>
+                </div>
+                <div>
+                  <Button raised accent ripple
+                    onClick={() => {
+                      editWidgetSize(this.props.dispatch, this.props.widgetKey, `${this.refs.newWidgetSizeRow.getValue()}${this.refs.newWidgetSizeCol.getValue()}`);
+                    }}>Save</Button>
+                  <Button onClick={() => this.setState(this.initialState)} style={{color: 'white'}}>Cancel</Button>
+                </div>
+              </div>
+            } noTriangle style={this.state.editWidgetSizeTooltipPos} tooltipStyle={{width: 350}} position="s" />
+          }
           <div>
             <IconButton id={'widget-title-menu-' + curId} name="more_vert" ripple/>
             <Menu target={'widget-title-menu-' + curId++} ripple align="right" valign="bottom">
@@ -74,13 +99,13 @@ export default class WidgetTitleMenu extends Component {
                   <Icon name={this.state.deletingTab ? 'done' : 'delete'} ripple/>
                 </FABButton>
               </li>
-              <MenuItem onClick={() => this.setState({confirmDeleteTooltipPos: this.calcTooltipPosition(findDOMNode(this.refs.titleMenu), 's'), deleteTab: null})}>Delete widget !!!</MenuItem>
-              <MenuItem>Ipsum</MenuItem>
+              <MenuItem onClick={() => this.setState({...this.initialState, editWidgetSizeTooltipPos: this.calcTooltipPosition(findDOMNode(this.refs.titleMenu), 's')})}>Edit widget size</MenuItem>
+              <MenuItem onClick={() => this.setState({...this.initialState, confirmDeleteTooltipPos: this.calcTooltipPosition(findDOMNode(this.refs.titleMenu), 's')})}><h6 style={{margin: 0, lineHeight: '48px', color: 'red'}}>Delete widget !!!</h6></MenuItem>
             </Menu>
           </div>
         </CardTitle>
-        { this.state.confirmDeleteTooltipPos && !this.state.deleteTab &&
-          <div style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2, backgroundColor: '#4F5A65', opacity: 0.3}} onClick={() => this.setState({confirmDeleteTooltipPos: null, deleteTab: null})}></div>
+        { (this.state.confirmDeleteTooltipPos && !this.state.deleteTab || this.state.editWidgetSizeTooltipPos) &&
+          <div style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2, backgroundColor: '#4F5A65', opacity: 0.3}} onClick={() => this.setState(this.initialState)}></div>
         }
       </div>
     );

@@ -1,16 +1,24 @@
 import React, {PropTypes} from 'react';
-import {FABButton, Icon} from 'react-mdl';
+import {FABButton, Icon, Tooltip} from 'react-mdl';
 import LinkList from '../LinkList';
 import './WidgetPanel.scss';
 import { FeedsReadingModalContent } from './ModalContent';
 import _feedElement from './lib/feedElement';
+import {requestNext} from './lib/util';
 
 const WidgetPanel = (props) => {
-  const feedElement = (feed, index) => _feedElement(feed, index, () => {
+  const feedElement = (feed, index, feeds) => _feedElement(feed, index, () => {
+    let _index = index;
     props.openModal(event, {element: (
-      <FeedsReadingModalContent title={feed.title} article={feed.summary} mainImgSrc={feed.image.url} />
+      <FeedsReadingModalContent article={feed} requestNext={() => {
+        const nextFeed = requestNext(feeds, _index++);
+        if (!nextFeed) {
+          return false;
+        }
+        return nextFeed;
+      }}/>
       )}, props.tabKey);
-  }, props.content.url);
+  }, props.content.url, <Tooltip label="Partial Content" style={{cursor: 'pointer'}}><Icon name="border_style"/></Tooltip>);
 
   return (
       <div className="widget-panel">
@@ -36,7 +44,6 @@ WidgetPanel.propTypes = {
   content: PropTypes.object.isRequired,
   openModal: PropTypes.func,
   tabKey: PropTypes.string,
-  editLayout: PropTypes.bool,
 };
 
 export default WidgetPanel;

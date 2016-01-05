@@ -9,30 +9,33 @@ const REMOVE_WIDGET = 'mymy/widget/REMOVE_WIDGET';
 const REMOVE_TAB = 'mymy/widget/REMOVE_TAB';
 const REMOVE_LINK = 'mymy/widget/REMOVE_LINK';
 const RENAME_TAB = 'mymy/widget/RENAME_TAB';
+const EXTEND_LAYOUT = 'mymy/widget/EXTEND_LAYOUT';
 const ERROR_HAPPEN = 'mymy/widget/ERROR_HAPPEN';
 
 
 const initialState = {
   data: {},
+  meta: {},
 };
 
 export default function widget(state = initialState, action = {}) {
-  if (!action.type.startsWith('@@') && action.type !== ADD_WIDGET && !action.target) {
-    console.log('Error happen, ', action);
-    return {...state, error: 'Target required'};
-  }
+  if (action.type.startsWith('mymy/widget')) {
+    if (!action.type.startsWith('@@') && !~[ADD_WIDGET, EXTEND_LAYOUT].indexOf(action.type) && !action.target) {
+      console.log('Error happen, ', action);
+      return {...state, error: 'Target required'};
+    }
 
-  if (!action.target && !action.targetTab && ~[ADD_LINK, REMOVE_LINK, RENAME_TAB, REMOVE_TAB].indexOf(action.type)) {
-    return {...state, error: 'Target and target tab required'};
+    if (!action.target && !action.targetTab && ~[ADD_LINK, REMOVE_LINK, RENAME_TAB, REMOVE_TAB].indexOf(action.type)) {
+      return {...state, error: 'Target and target tab required'};
+    }
   }
 
   switch (action.type) {
   case EDIT_SIZE:
-    const newSize = state[action.target].size + action.data;
-    if (Math.floor(newSize / 10) < 1 || Math.floor(newSize / 10) > 3 || newSize % 10 < 1 || newSize % 10 > 4) {
+    if (Math.floor(action.newSize / 10) < 1 || Math.floor(action.newSize / 10) > 3 || action.newSize % 10 < 1 || action.newSize % 10 > 4) {
       return state;
     }
-    return update(state, {error: {$set: null}, data: {[action.target]: {size: {$set: newSize}}}});
+    return update(state, {error: {$set: null}, data: {[action.target]: {size: {$set: action.newSize}}}});
 
   case ADD_LINK:
     return update(state, {error: {$set: null}, data: {[action.target]: {data: {[action.targetTab]: {data: {$apply: (array) => union(array, action.data)}}}}}});
@@ -82,7 +85,7 @@ export default function widget(state = initialState, action = {}) {
     return update(state, {error: {$set: null}, data: {[action.target]: {$set: action.data}}});
   case REMOVE_WIDGET:
     return update(state, {error: {$set: null}, data: {$apply: (oldData) => {
-      let newData = {};
+      const newData = {};
       Object.keys(oldData).forEach(oldKey => {
         if (oldKey !== action.target) {
           newData[oldKey] = oldData[oldKey];
@@ -90,6 +93,8 @@ export default function widget(state = initialState, action = {}) {
       });
       return newData;
     }}});
+  case EXTEND_LAYOUT:
+    return update(state, {error: {$set: null}, meta: {size: {$set: action.newSize}}});
   case ERROR_HAPPEN:
     return {...state, error: action.error};
   default:
@@ -103,8 +108,8 @@ export default function widget(state = initialState, action = {}) {
  * @params{data:number} +10/-10 for increase/decrease one row, +1/-1 for increase/decrease one collumn
  *
  */
-export function editSize(data) {
-  return { type: EDIT_SIZE, data};
+export function editSize(target, newSize) {
+  return { type: EDIT_SIZE, target, newSize};
 }
 
 /**
@@ -146,6 +151,10 @@ export function addWidget(target, data) {
 
 export function removeWidget(target) {
   return { type: REMOVE_WIDGET, target};
+}
+
+export function extendLayout(newSize) {
+  return { type: EXTEND_LAYOUT, newSize};
 }
 
 

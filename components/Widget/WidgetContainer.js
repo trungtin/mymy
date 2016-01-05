@@ -2,9 +2,8 @@ import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 import {Grid, Cell, Icon, Button} from 'react-mdl';
 import structureWidget from './lib/structureWidget';
-import Modal from 'react-modal';
+import Modal from './Modal';
 import './WidgetContainer.scss';
-import './Modal.scss';
 import {addLinkToWidget as _addLinkToWidget, addTabToWidget as _addTabToWidget, addWidget as _addWidget} from './lib/actions';
 import {AddLinkModalContent, AddTabModalContent} from './ModalContent';
 import Tooltip from '../Tooltip';
@@ -18,7 +17,6 @@ export default class WidgetContainer extends Component {
   static propTypes = {
     data: PropTypes.object,
     dispatch: PropTypes.func,
-    editLayout: PropTypes.bool,
   };
 
   constructor() {
@@ -70,7 +68,7 @@ export default class WidgetContainer extends Component {
             } else if (widgetData.data[tabKey].type === 'feed') {
               const feedLocation = widgetData.data[tabKey].data.split('#');
               const data = feedLocation.reduce((prev, cur) => prev[cur], feedList);
-              widgetData.data[tabKey] = {...widgetData.data[tabKey], data};
+              widgetData.data[tabKey] = {...widgetData.data[tabKey], data, ...feedList[feedLocation[0]].meta};
             }
           }
         }
@@ -143,55 +141,51 @@ export default class WidgetContainer extends Component {
     if (this.state.data && Object.keys(this.state.data).length) {
       gridContent = structureWidget(this.state.data, this);
     }
+
+    let modalContentEl;
+    if (this.state.modalContent.element === 0) {
+      modalContentEl = (<AddLinkModalContent linkList={this.state.linkList} toBeAddedLinkList={this.state.toBeAddedLinkList}
+        selectLinkToAdd={::this.selectLinkToAdd} addLinkToWidget={::this.addLinkToWidget} closeModal={::this.closeModal}
+      />);
+    } else if (this.state.modalContent.element === 1) {
+      modalContentEl = (<AddTabModalContent link_linkList={this.state.linkList} link_toBeAddedLinkList={this.state.toBeAddedLinkList}
+        link_selectLinkToAdd={::this.selectLinkToAdd} link_addLinkTabToWidget={::this.addLinkTabToWidget} closeModal={::this.closeModal}
+        feed_feedList={this.state.feedList} feed_addFeedTabToWidget={::this.addFeedTabToWidget} openModal={::this.openModal}
+        tabList={Object.keys(this.props.data[this.state.modalTarget].data)}
+      />);
+    } else {
+      modalContentEl = this.state.modalContent.element;
+    }
     return (
       <div id="modal__docker">
         <Grid>
           { gridContent !== undefined && gridContent }
           <Tooltip toggleOnClick content={
-            <div>
-              <NumberSelectable initial={3} range={[1, 3]} style={{display: 'inline'}} ref="newWidgetRow"/>
-              <NumberSelectable initial={2} range={[1, 4]} style={{display: 'inline'}} ref="newWidgetCol" />
-              <Button raised accent ripple
-                onClick={(event) =>
-                  ::this.createNewWidget(event, [this.refs.newWidgetRow.getValue(), this.refs.newWidgetCol.getValue()])
-                }>Create</Button>
-              <Button onClick={() => this.refs.newWidgetConfirmTooltip.toggleShowing()} style={{color: 'white'}}>Cancel</Button>
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+              <div style={{display: 'flex', alignItems: 'center'}}>
+                <span>New widget size: </span>
+                <NumberSelectable initial={3} range={[1, 3]} style={{display: 'inline'}} ref="newWidgetRow"/>
+                <span> rows, </span>
+                <NumberSelectable initial={2} range={[1, 4]} style={{display: 'inline'}} ref="newWidgetCol" />
+                <span> columns.</span>
+              </div>
+              <div>
+                <Button raised accent ripple
+                  onClick={(event) => {
+                    this.createNewWidget(event, [this.refs.newWidgetRow.getValue(), this.refs.newWidgetCol.getValue()]);
+                    return this.refs.newWidgetConfirmTooltip.toggleShowing();
+                  }}>Create</Button>
+                <Button onClick={() => this.refs.newWidgetConfirmTooltip.toggleShowing()} style={{color: 'white'}}>Cancel</Button>
+              </div>
             </div>
-          } noTriangle style={{width: '100%'}} position="n" ref="newWidgetConfirmTooltip">
+          } noTriangle style={{width: '100%'}} tooltipStyle={{width: 350}} position="n" ref="newWidgetConfirmTooltip">
             <Cell col={12} className="add-widget__cell">
               <Icon name="add_circle"/>
             </Cell>
           </Tooltip>
         </Grid>
 
-        <Modal isOpen={this.state.modalOpen} onRequestClose={::this.closeModal}
-          style={{
-            overlay: {
-              position: 'fixed',
-              top: 64,
-              zIndex: 100,
-            },
-            content: {
-            },
-          }}
-        >
-          { this.state.modalContent.element === 0 &&
-            <AddLinkModalContent linkList={this.state.linkList} toBeAddedLinkList={this.state.toBeAddedLinkList}
-              selectLinkToAdd={::this.selectLinkToAdd} addLinkToWidget={::this.addLinkToWidget} closeModal={::this.closeModal}
-            />
-          }
-          { this.state.modalContent.element === 1 &&
-            <AddTabModalContent link_linkList={this.state.linkList} link_toBeAddedLinkList={this.state.toBeAddedLinkList}
-              link_selectLinkToAdd={::this.selectLinkToAdd} link_addLinkTabToWidget={::this.addLinkTabToWidget} closeModal={::this.closeModal}
-              feed_feedList={this.state.feedList} feed_addFeedTabToWidget={::this.addFeedTabToWidget} openModal={::this.openModal}
-              tabList={Object.keys(this.props.data[this.state.modalTarget].data)}
-            />
-          }
-
-          { typeof this.state.modalContent.element === 'object' &&
-            this.state.modalContent.element
-          }
-        </Modal>
+        <Modal modalOpen={this.state.modalOpen} closeModal={::this.closeModal} modalContent={modalContentEl}/>
       </div>
     );
   }

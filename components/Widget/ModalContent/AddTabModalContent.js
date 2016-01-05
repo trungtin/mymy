@@ -14,8 +14,8 @@ export default class AddTabModalContent extends Component {
 
   static propTypes = {
     link_linkList: PropTypes.array,
-    link_selectLinkToAdd: PropTypes.func,
-    link_addLinkTabToWidget: PropTypes.func,
+    link_selectLinkToAdd: PropTypes.func.isRequired,
+    link_addLinkTabToWidget: PropTypes.func.isRequired,
     openModal: PropTypes.func,
     closeModal: PropTypes.func,
     link_toBeAddedLinkList: PropTypes.array,
@@ -62,15 +62,19 @@ export default class AddTabModalContent extends Component {
 
   render() {
     console.log('feed modal render')
-    return (<div>
+    return (<div style={{width: '100%'}}>
       <Tabs ripple activeTab={0} onChange={(tabId) => this.setState({tabId})}>
         <Tab>Link</Tab>
         <Tab>Feed</Tab>
       </Tabs>
       <section>
         { this.state.tabId === 0 &&
-          <LinkView linkList={this.props.link_linkList} toBeAddedLinkList={this.props.link_toBeAddedLinkList}
-            selectLinkToAdd={() => {}}/>
+          <LinkView
+            linkList={this.props.link_linkList}
+            toBeAddedLinkList={this.props.link_toBeAddedLinkList}
+            sortByCategory
+            selectLinkToAdd={this.props.link_selectLinkToAdd}
+          />
         }
         { this.state.tabId === 1 &&
           <FeedView linkList={this.props.link_linkList} feedList={this.props.feed_feedList} openModal={this.props.openModal} onFeedPreview={::this.onFeedPreview}/>

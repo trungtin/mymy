@@ -18,7 +18,7 @@ function Html({ title, description, body, debug }) {
         <meta name="description" content={description || config.description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300" />
         <link rel="stylesheet" href="material.css" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <script src={'/app.js?' + new Date().getTime()} />
@@ -27,7 +27,6 @@ function Html({ title, description, body, debug }) {
         <div id="app" dangerouslySetInnerHTML={{ __html: body }} />
         <script src="material.js" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/5.1.0/pouchdb.min.js" />
-        <script src="pouchdb.find.min.js" />
         <GoogleAnalytics />
       </body>
     </html>

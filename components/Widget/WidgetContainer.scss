@@ -3,18 +3,18 @@
   right: -7px;
   bottom: -7px;
   display:inline-block;
-  width: 28px;
-  height: 28px;
+  width: 23px;
+  height: 23px;
   border-radius: 50%;
-  background-color: #42ff4b;
+  background-color: rgb(255,193,7);
   &:after{
     content: '';
     display: block;
-    width: 6px;
+    width: 8px;
     height: 14px;
     border: solid #fff;
-    border-width: 0 5px 5px 0;
-    transform: translate(8px, 2px) rotate(45deg);
+    border-width: 0 3px 3px 0;
+    transform: translate(7px, 2px) rotate(35deg);
   }
 }
 
@@ -56,4 +56,9 @@
     margin: 0.5rem;
     font-size: 3rem;
   }
+}
+
+iframe {
+  display: block;
+  margin: 0 auto;
 }

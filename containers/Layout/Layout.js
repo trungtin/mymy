@@ -11,7 +11,7 @@ import {Layout as LayoutMDL} from 'react-mdl';
 
 function Layout({ children }) {
   return (
-    <LayoutMDL fixedHeader>
+    <LayoutMDL>
       <div className="mdl-layout__inner-container">
         <Navigation />
         {children}

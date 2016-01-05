@@ -4,7 +4,7 @@ import strToStream from 'string-to-stream';
 
 export default function fetchFeed(feedUrl) {
   const parser = new FeedParser();
-  const feed = {data: [], fetchedAt: Date.now(), type: 'feed'};
+  const feed = {data: [], fetchedAt: Date.now()};
   return new Promise(resolve => {
     request.get(feedUrl)
       .end((err, res) => {
@@ -28,7 +28,7 @@ export default function fetchFeed(feedUrl) {
         }
       })
       .on('end', () => {
-        feed.url = feedUrl.match(/:\/\/(.*?)(\/|$)/)[1] + '/';
+        feed.url = feedUrl.match(/\/\/(.*?)(\/|$)/)[1] + '/';
         resolve(feed);
       });
   });

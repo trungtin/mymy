@@ -9,3 +9,14 @@
     color: rgba(0, 0, 0, 0.67);
   font-size: 4rem;
 }
+
+.main-logo {
+  background-image: url(../../static/mymy-logo.png);
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-size: cover;
+}

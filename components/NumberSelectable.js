@@ -30,14 +30,19 @@ export default class NumberSelectable extends React.Component {
     const defaultStyle = {
       boxShadow: this.props.raised && '0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12)',
       borderRadius: 4,
+      padding: '0.5rem',
+      background: 'white',
+      color: 'darkblue',
+      fontSize: 18,
+      lineHeight: 1,
     };
     const disabledIncrement = this.props.range && (this.state.count >= this.props.range[1] || this.state.count >= this.props.range);
     const disabledDecrement = this.props.range && this.state.count <= this.props.range[0];
     return (
-      <div>
-        <Icon name="expand_less" onClick={() => !disabledIncrement && this.setState({count: this.state.count + this.props.step})} />
-        <div style={{padding: '0.5rem'}}>{this.state.count}</div>
-        <Icon name="expand_more" onClick={() => !disabledDecrement && this.setState({count: this.state.count - this.props.step})} />
+      <div style={{display: 'inline-block', margin: '0 0.5rem'}}>
+        <Icon name="expand_less" style={{cursor: 'pointer', msUserSelect: 'none', MozUserSelect: 'none', WebkitUserSelect: 'none'}} onClick={() => !disabledIncrement && this.setState({count: this.state.count + this.props.step})} />
+        <div style={defaultStyle}>{this.state.count}</div>
+        <Icon name="expand_more" style={{cursor: 'pointer', msUserSelect: 'none', MozUserSelect: 'none', WebkitUserSelect: 'none'}} onClick={() => !disabledDecrement && this.setState({count: this.state.count - this.props.step})} />
       </div>
       );
   }
