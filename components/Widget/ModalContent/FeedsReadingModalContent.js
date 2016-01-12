@@ -2,6 +2,8 @@ import React, {PropTypes} from 'react';
 import './FeedsReadingModalContent.scss';
 import EventListener from 'fbjs/lib/EventListener';
 
+const SCROLL_HEIGHT_LOAD_NEXT = 0.85;
+
 const onScroll = (element, callback) => {
   let isCalled = false;
   return {
@@ -9,7 +11,7 @@ const onScroll = (element, callback) => {
       if (!isCalled && typeof callback === 'function') {
         const scrollHeight = element.scrollHeight;
         const clientHeight = element.clientHeight;
-        const scrollTopOffset = 0.85 * (scrollHeight - clientHeight);
+        const scrollTopOffset = SCROLL_HEIGHT_LOAD_NEXT * (scrollHeight - clientHeight);
         if (element.scrollTop >= scrollTopOffset) {
           isCalled = true;
           callback();
@@ -37,8 +39,10 @@ export default class FeedsReadingModalContent extends React.Component {
 
   componentDidMount() {
     const articleWrapper = this.refs.articleWrapper;
-    const {onScollCall, resetScrollCall} = onScroll(articleWrapper, ::this.loadMoreContent, this);
+    const {onScollCall, resetScrollCall} = onScroll(articleWrapper, ::this.loadMoreContent);
     this.resetScrollCall = resetScrollCall;
+
+    // Kickstart load next article if first article height is smaller than wrapper DOM element (not scrollable).
     if (articleWrapper.scrollHeight <= articleWrapper.clientHeight) {
       onScollCall();
     }
@@ -47,6 +51,7 @@ export default class FeedsReadingModalContent extends React.Component {
     this.iframeUrlMapping = new Map([]);
     this.yqlScriptMapping = new Map([]);
 
+    // YQL scrape iframe
     const loadHTML = (html, iframeUrl) => {
       const iframe = this.iframeUrlMapping.get(iframeUrl);
 
@@ -130,7 +135,7 @@ export default class FeedsReadingModalContent extends React.Component {
     const self = this;
     function iframeLoaded(event) {
       const iframe = event.target;
-      if (iframe.contentDocument.body.innerHTML !== '') {
+      if (!iframe.contentDocument || iframe.contentDocument.body.innerHTML !== '') {
         return;
       }
       const url = iframe.src;

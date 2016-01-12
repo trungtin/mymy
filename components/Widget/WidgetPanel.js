@@ -5,11 +5,14 @@ import './WidgetPanel.scss';
 import { FeedsReadingModalContent } from './ModalContent';
 import _feedElement from './lib/feedElement';
 import {requestNext} from './lib/util';
+import EmbeddedContent from './EmbeddedContent';
+import {canUseDOM} from 'fbjs/lib/ExecutionEnvironment';
+import classNames from 'classnames';
 
 const WidgetPanel = (props) => {
-  const feedElement = (feed, index, feeds) => _feedElement(feed, index, () => {
+  const feedElement = (feed, index, feeds) => _feedElement(feed, index, (event) => {
     let _index = index;
-    props.openModal(event, {element: (
+    !props.content.partial_content && props.openModal(event, {element: (
       <FeedsReadingModalContent article={feed} requestNext={() => {
         const nextFeed = requestNext(feeds, _index++);
         if (!nextFeed) {
@@ -18,7 +21,7 @@ const WidgetPanel = (props) => {
         return nextFeed;
       }}/>
       )}, props.tabKey);
-  }, props.content.url, <Tooltip label="Partial Content" style={{cursor: 'pointer'}}><Icon name="border_style"/></Tooltip>);
+  }, props.content.url, props.content.partial_content && <Tooltip label="Partial Content" style={{cursor: 'pointer'}}><Icon name="border_style"/></Tooltip> || undefined);
 
   return (
       <div className="widget-panel">
@@ -31,9 +34,11 @@ const WidgetPanel = (props) => {
           </section>
         }
         { props.content.type === 'feed' &&
-          <section className="card__main-panel">
-            {props.content.data.map(feedElement)}
-            <small>--- End of feeds ---</small>
+          <section className={classNames({'card__main-panel': true, 'card__main-panel__embedded': !!props.content.data.__html})}>
+            { Array.isArray(props.content.data) && props.content.data.map(feedElement)}
+            { !!props.content.data.__html && ( canUseDOM && <EmbeddedContent key={props.tabKey} __html={props.content.data.__html}/> ) ||
+              <small>--- End of feeds ---</small>
+            }
           </section>
         }
       </div>

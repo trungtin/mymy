@@ -1,9 +1,3 @@
-/**
- * React Static Boilerplate
- * https://github.com/koistya/react-static-boilerplate
- * Copyright (c) Konstantin Tarkus (@koistya) | MIT license
- */
-
 import React, { PropTypes } from 'react';
 import GoogleAnalytics from '../GoogleAnalytics';
 import config from '../../config';
@@ -24,6 +18,7 @@ function Html({ title, description, body, debug }) {
         <script src={'/app.js?' + new Date().getTime()} />
       </head>
       <body>
+        <div id="fb-root"></div>
         <div id="app" dangerouslySetInnerHTML={{ __html: body }} />
         <script src="material.js" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/5.1.0/pouchdb.min.js" />

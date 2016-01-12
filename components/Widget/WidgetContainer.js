@@ -34,7 +34,7 @@ export default class WidgetContainer extends Component {
   }
 
   componentDidMount() {
-    this.getLink();
+    this.fetchData();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,7 +43,7 @@ export default class WidgetContainer extends Component {
     }
   }
 
-  async getLink() {
+  async fetchData() {
     let linkList;
     let feedList;
     const db = new window.PouchDB('mymy-db');
@@ -66,9 +66,20 @@ export default class WidgetContainer extends Component {
             if (widgetData.data[tabKey].type === 'link') {
               widgetData.data[tabKey] = {...widgetData.data[tabKey], data: widgetData.data[tabKey].data.map(link => linkList[link])};
             } else if (widgetData.data[tabKey].type === 'feed') {
-              const feedLocation = widgetData.data[tabKey].data.split('#');
-              const data = feedLocation.reduce((prev, cur) => prev[cur], feedList);
-              widgetData.data[tabKey] = {...widgetData.data[tabKey], data, ...feedList[feedLocation[0]].meta};
+              const feedData = widgetData.data[tabKey].data;
+              const feedLocation = feedData.location.split('#');
+              const userData = feedData.supplyData;
+              const extractedData = Object.assign({}, feedLocation.reduce((prev, cur) => prev[cur], feedList));
+              if (Array.isArray(extractedData.require)) {
+                if (Array.isArray(userData) && userData.length === extractedData.require.length) {
+                  Object.keys(extractedData).filter(_key => _key !== 'require').forEach(_key => {
+                    extractedData.require.forEach((required, index) => {
+                      extractedData[_key] = typeof extractedData[_key] === 'string' && extractedData[_key].replace(new RegExp('\\$\\{' + index + '\\}', 'g'), userData[index]) || extractedData[_key];
+                    });
+                  });
+                }
+              }
+              widgetData.data[tabKey] = {...widgetData.data[tabKey], data: extractedData, ...linkList[feedLocation[0]]};
             }
           }
         }
@@ -127,7 +138,8 @@ export default class WidgetContainer extends Component {
   }
 
   addFeedTabToWidget(event, targetTab, data) {
-    _addTabToWidget(this.props.dispatch, this.state.modalTarget, targetTab, {type: 'feed', data: data.location}, {type: 'feed', data: { url: data.url}});
+    const {location, supplyData, __html} = data;
+    _addTabToWidget(this.props.dispatch, this.state.modalTarget, targetTab, {type: 'feed', data: {location, supplyData}}, {type: 'feed', data: {__html}});
     this.closeModal();
   }
 

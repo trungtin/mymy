@@ -16,7 +16,7 @@ const LinkList = (props) => <div style={{display: 'inline'}}>{preProcess(props.d
     props.onSelect(event, con);
   }}>
     <a href={con.url || props.data[con].url}>
-      <img src={con.icon || (props.data[con] && props.data[con].icon) || 'https://' + (con.url || props.data[con].url).match(/\/\/([a-z0-9\.]+)/i)[1] + '/apple-touch-icon.png'} style={{width: 48, height: 48}} alt={con.name || con}/>
+      <img src={con.icon || (props.data[con] && props.data[con].icon) || '//' + (con.url || props.data[con].url).match(/\/\/([a-z0-9\.]+)/i)[1] + '/apple-touch-icon.png'} style={{width: 48, height: 48}} alt={con.name || con}/>
       {
         props.selectable && !!~props.selectedList.indexOf(con) &&
         props.selectedMarker

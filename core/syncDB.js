@@ -22,7 +22,7 @@ export async function updateDB(db, result, onUpdated) {
   if (!result) {
     try {
       _result = await new Promise((res, rej) => {
-        request.get('/api/index.json').end((err, response) => {
+        request.get('/api/index.json').set('Accept', 'application/json').end((err, response) => {
           if (err) return rej(err);
           return res(response);
         });
@@ -59,13 +59,14 @@ async function syncDB() {
   const db = new window.PouchDB('mymy-db');
   return new Promise((res, rej) => {
     request.get('/api/index.json')
+    .set('Accept', 'application/json')
     .end((error, result) => {
       if (error) {
         return rej(error);
       }
       return db.put({
         _id: 'widget',
-        data: result.body.widget,
+        ...result.body.widget,
       })
       .then(() => {
         return updateDB(db, result);
@@ -73,7 +74,7 @@ async function syncDB() {
       .catch((dbErr) => {
         window.console.log('There was an error with database: ', dbErr);
       })
-      .then(response => res({...response, data: result.body.widget}));
+      .then(response => res({...response, ...result.body.widget}));
     });
   }).catch(fetchError => {window.console.log('Fetch data error: '); window.console.log(fetchError);});
 }

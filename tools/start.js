@@ -1,9 +1,3 @@
-/**
- * React Static Boilerplate
- * https://github.com/koistya/react-static-boilerplate
- * Copyright (c) Konstantin Tarkus (@koistya) | MIT license
- */
-
 import browserSync from 'browser-sync';
 import webpack from 'webpack';
 import hygienistMiddleware from 'hygienist-middleware';
@@ -22,6 +16,13 @@ export default async () => {
       baseDir: 'build',
 
       middleware: [
+        function allowCrossDomain(req, res, next) {
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+          res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+          next();
+        },
         hygienistMiddleware('build'),
 
         webpackDevMiddleware(bundler, {
@@ -34,6 +35,11 @@ export default async () => {
 
           // for other settings see
           // http://webpack.github.io/docs/webpack-dev-middleware.html
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          },
         }),
 
         // bundler should be the same as above

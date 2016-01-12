@@ -50,14 +50,14 @@ export default class LinkView extends React.Component {
   render() {
     const isAllExpanded = !!this.sorted && Object.keys(this.sorted).length === this.state.expanded.size;
     return (<Grid style={this.props.style}>
-      <Cell col={10} style={{position: 'relative', margin: 0}}>
+      <Cell col={10} style={{margin: 0, height: '100%', overflow: 'auto'}}>
         { this.props.linkList && Object.keys(this.props.linkList).length && !this.props.sortByCategory &&
           <LinkList data={this.props.linkList}
             onSelect={this.props.selectLinkToAdd} selectedList={this.props.toBeAddedLinkList} selectable selectedMarker={checkMark}/>
         }
         {
           this.sorted &&
-          <Button style={{float: 'right', marginRight: 25, zIndex: 2}} onClick={() => {
+          <Button style={{position: 'absolute', right: '20%', margin: 15, zIndex: 2}} onClick={() => {
             isAllExpanded ? this.setState({expanded: new Set([])}) : this.setState({expanded: new Set(Object.keys(this.sorted))});
           }}>{ isAllExpanded ? 'Collapse all' : 'Expand all'}</Button>
         }

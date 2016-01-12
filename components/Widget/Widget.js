@@ -34,10 +34,10 @@ export default class Widget extends Component {
   _updatePanelContent(tabId, nextProps) {
     const widgetPanelContent = (nextProps && nextProps.data || this.props.data)[Object.keys(this.props.data)[tabId]];
     if (widgetPanelContent) {
-      if (widgetPanelContent.type === 'feed') {
+      if (widgetPanelContent.type === 'feed' && widgetPanelContent.data.url) {
         this.setState({widgetPanelContent, fetchingFeed: true});
         this._fetchFeed(widgetPanelContent.data.url, tabId);
-      } else if (widgetPanelContent.type === 'link') {
+      } else if (widgetPanelContent.type === 'link' || (widgetPanelContent.type === 'feed' && widgetPanelContent.data.__html)) {
         this.setState({widgetPanelContent, tabId, fetchingFeed: false});
       }
     }

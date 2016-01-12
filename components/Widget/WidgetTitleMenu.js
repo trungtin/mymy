@@ -60,8 +60,13 @@ export default class WidgetTitleMenu extends Component {
             <Tooltip content={<div>
                 <h6 style={{margin: '0 0 10px 0'}}>Do you want to delete {this.state.deleteTab && `__${this.state.deleteTab}__ tab` || `this widget`}?</h6>
                 <Button raised accent onClick={() => {
-                  this.state.deleteTab && removeTab(this.props.dispatch, this.props.widgetKey, this.state.deleteTab);
-                  !this.state.deleteTab && removeWidget(this.props.dispatch, this.props.widgetKey);
+                  if (this.state.deleteTab) {
+                    const newTab = this.props.tabs.indexOf(this.state.deleteTab) - 1;
+                    this.props.onTabChange(newTab > -1 ? newTab : 1);
+                    removeTab(this.props.dispatch, this.props.widgetKey, this.state.deleteTab);
+                  } else {
+                    removeWidget(this.props.dispatch, this.props.widgetKey);
+                  }
                   this.setState({confirmDeleteTooltipPos: null, deleteTab: null});
                 }}><h6 style={{margin: 0}}>Yeah</h6></Button>
                 <Button style={{color: 'white'}} onClick={() => this.setState({confirmDeleteTooltipPos: null, deleteTab: null})}><h6 style={{margin: 0}}>Cancel</h6></Button>
@@ -82,6 +87,7 @@ export default class WidgetTitleMenu extends Component {
                   <Button raised accent ripple
                     onClick={() => {
                       editWidgetSize(this.props.dispatch, this.props.widgetKey, `${this.refs.newWidgetSizeRow.getValue()}${this.refs.newWidgetSizeCol.getValue()}`);
+                      this.setState(this.initialState);
                     }}>Save</Button>
                   <Button onClick={() => this.setState(this.initialState)} style={{color: 'white'}}>Cancel</Button>
                 </div>

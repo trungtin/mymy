@@ -41,7 +41,7 @@ function merge(data, depth, curMaxRow, curMaxCol, callerColValue = 0) {
     }
 
     // main widget element.
-    const curEl = <Cell col={cur.col * 12 / curMaxCol} key={`cell__${depth}-${curIndex}`}>{cur.el}</Cell>;
+    const curEl = <Cell col={cur.col * 12 / curMaxCol} key={`cell__${depth}-${curIndex}`} data-inner-cell>{cur.el}</Cell>;
 
     if (cur.col <= curMaxCol) {
       const mergedEl = cur.col === curMaxCol ? [{}, 0] : merge(arr.slice(curIndex + 1), depth + 1, cur.row, curMaxCol - cur.col, cur.col * 12 / curMaxCol);

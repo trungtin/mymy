@@ -1,11 +1,5 @@
-/**
- * React Static Boilerplate
- * https://github.com/koistya/react-static-boilerplate
- * Copyright (c) Konstantin Tarkus (@koistya) | MIT license
- */
-
 import React, { Component } from 'react';
-import {Textfield, Content, Button, Grid} from 'react-mdl';
+import {Textfield, Content, Grid} from 'react-mdl';
 import {WidgetContainer} from '../components';
 import './styles/index.scss';
 import {connect} from 'react-redux';

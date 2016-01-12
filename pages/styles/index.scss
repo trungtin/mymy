@@ -9,21 +9,18 @@
   box-sizing: border-box;
   padding: 0;
   &.grid__1x {
-    height: 200px;
-    &>.mdl-cell {
-      height: 200px;
+    &>.mdl-cell[data-inner-cell] {
+      height: 250px;
     }
   }
   &.grid__2x {
-    height: 400px;
-    &>.mdl-cell {
-      height: 400px;
+    &>.mdl-cell[data-inner-cell] {
+      height: 500px;
     }
   }
   &.grid__3x {
-    height: 600px;
-    &>.mdl-cell {
-      height: 600px;
+    &>.mdl-cell[data-inner-cell] {
+      height: 750px;
     }
   }
   &.grid__1x, &.grid__2x, &.grid__3x {

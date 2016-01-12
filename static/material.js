@@ -3354,7 +3354,7 @@ MaterialLayout.prototype.init = function () {
             if (this.element_.classList.contains(this.CssClasses_.FIXED_HEADER)) {
                 this.header_.insertBefore(drawerButton, this.header_.firstChild);
             } else {
-                this.element_.insertBefore(drawerButton, this.content_);
+                this.element_.firstChild.insertBefore(drawerButton, this.content_);
             }
             var obfuscator = document.createElement('div');
             obfuscator.classList.add(this.CssClasses_.OBFUSCATOR);

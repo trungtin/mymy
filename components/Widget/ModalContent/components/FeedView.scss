@@ -1,30 +1,12 @@
 @import '../../../../containers/scss/variables.scss';
 
-.stacking-layer {
+.feed-view__thumbnail {
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   transition: all 0.3s ease-in-out;
-  &:after, &:before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    visibility: hidden;
-    top: 0px;
-    left: 0px;
-    z-index: -1;
-    transition: all 0.3s ease-in-out;
-  }
   &:hover {
     transform: scale(0.9);
     transform-origin: bottom;
-    &:after {
-      visibility: visible;
-      transform: scale(0.85) translateY(-20%);
-    }
-    &:before {
-      visibility: visible;
-      transform: scale(0.75) translateY(-40%);
-    }
   }
 }
 
@@ -36,7 +18,6 @@
   width: calc(100% - 2rem);
   bottom: 65px;
   left: 0;
-  overflow: hidden;
   .feed-view__info-close {
     text-align: center;
     position: absolute;
@@ -50,10 +31,14 @@
   }
   .feed-view__sub-feed-selector {
     position:relative;
-    height: 15rem;
-    overflow: hidden;
+    max-height: 15rem;
+    overflow-x: hidden;
     width: 20%;
+    height: 100%;
     display: inline-block;
+    & + .feed-view__info {
+      border-left: 1px solid #e0e0e0;
+    }
   }
   .feed-view__info {
     position: relative;
@@ -61,15 +46,12 @@
     overflow: hidden;
     display: inline-block;
     width: auto;
-    &:nth-child(3){
-      border-left: 1px solid #e0e0e0;
-    }
   }
   .feed-view__info-content, .feed-view__sub-feed-selector-content {
     cursor: pointer;
     margin: 0;
     overflow-y: scroll;
-    height: 15rem;
+    max-height: 15rem;
     padding: 0 2rem;
     width: calc(100% + 20px);
     list-style: none;

@@ -1,0 +1,133 @@
+$blue: #2196f3;
+$red: #f44336;
+$pink: #e91e63;
+$lime: #cddc39;
+$green: #4caf50;
+
+.drawer-menu__wrapper {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: -1px;
+  right: 0;
+  bottom: 0;
+  opacity: 1;
+  transition: all 0.3s cubic-bezier( 0.2, 0.9, 0.64, 1.34 );
+  overflow-x: hidden;
+  &.outmost-menu {
+    top: 25%;
+    left: -2px;
+  }
+  &.drawer-menu__wrapper-enter, &.drawer-menu__wrapper-leave {
+    opacity: 0;
+    transform: translateX(50%);
+  }
+}
+
+.drawer-layer__pusher {
+  height: 100%;
+  width: 8px;
+  display: inline-block;
+  transition: 0.1s all ease-in-out;
+  &:hover {
+  width: 16px;
+  }
+}
+
+@define-mixin menu-colored $color {
+  border-color: $color;
+  &>.drawer-menu__title {
+    color: $color;
+  }
+  &:before {
+    border-color: $color transparent transparent transparent;
+  }
+}
+
+.drawer-menu {
+  position: relative;
+  display: inline-block;
+  background-color: #FFF;
+  border-left: 2px solid;
+  border-top: 1px solid;
+  border-color: transparent;
+  &>ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 3rem;
+  }
+  .drawer-menu__title {
+    text-align: center;
+  }
+  &.colored__blue {
+    @mixin menu-colored $blue;
+  }
+  &.colored__red {
+    @mixin menu-colored $red;
+  }
+  &.colored__pink {
+    @mixin menu-colored $pink;
+  }
+  &.colored__lime {
+    @mixin menu-colored $lime;
+  }
+  &.colored__green {
+    @mixin menu-colored $green;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-style: solid;
+    border-width: 45px 45px 0 0;
+    border-color: white transparent transparent transparent;
+  }
+}
+
+@define-mixin colored $color {
+  border-color: $color;
+  color: $color;
+  &:hover {
+    color: white;
+    background-color: $color;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  }
+}
+
+.drawer-menu__item-wrapper {
+  text-align: center;
+}
+.drawer-menu__item {
+  display: block;
+  margin: 1rem auto;
+  cursor: pointer;
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  width: fit-content;
+  text-align: center;
+  transition: all 0.1s ease-in-out;
+  border-color: #bbb;
+  color: #bbb;
+  &:hover {
+    color: black;
+    border-color: black;
+  }
+  &.colored__blue {
+    @mixin colored $blue;
+  }
+  &.colored__red {
+    @mixin colored $red;
+  }
+  &.colored__pink {
+    @mixin colored $pink;
+  }
+  &.colored__lime {
+    @mixin colored $lime;
+  }
+  &.colored__green {
+    @mixin colored $green;
+  }
+}

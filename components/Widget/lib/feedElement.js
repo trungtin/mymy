@@ -12,7 +12,7 @@ export default (feed, index, onFeedClick, feedHomepage, prependIcon, appendIcon)
         style={{width: `calc(100% - ${(prependIcon ? 24 : 0) + (appendIcon ? 24 : 0)}px)`}}
         onClick={(event) => {
           event.preventDefault();
-          onFeedClick && onFeedClick();
+          onFeedClick && onFeedClick(event);
         }}
       ><h6>{feed.title}</h6></a>
       {!!appendIcon &&

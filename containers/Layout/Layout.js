@@ -1,19 +1,15 @@
-/**
- * React Static Boilerplate
- * https://github.com/koistya/react-static-boilerplate
- * Copyright (c) Konstantin Tarkus (@koistya) | MIT license
- */
-
 import React, { PropTypes } from 'react';
 import './Layout.scss';
 import Navigation from '../Navigation';
-import {Layout as LayoutMDL} from 'react-mdl';
+import {Layout as LayoutMDL, Drawer} from 'react-mdl';
+import MainDrawer from '../Drawer/MainDrawer';
 
 function Layout({ children }) {
   return (
     <LayoutMDL>
       <div className="mdl-layout__inner-container">
         <Navigation />
+        <Drawer><MainDrawer /></Drawer>
         {children}
       </div>
     </LayoutMDL>

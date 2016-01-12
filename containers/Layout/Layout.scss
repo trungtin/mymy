@@ -1,9 +1,3 @@
-/**
- * React Static Boilerplate
- * https://github.com/koistya/react-static-boilerplate
- * Copyright (c) Konstantin Tarkus (@koistya) | MIT license
- */
-
 @import '../scss/variables.scss';
 
 html, body {
@@ -53,7 +47,9 @@ img {
   }
 }
 
-
+.mdl-layout__drawer-button {
+  color: black;
+}
 
 /* Force Card element full widht */
 .mdl-cell .mdl-card {

@@ -1,14 +1,29 @@
-@media(min-width: 840px) {
-  .widget-panel {
-    margin: 0 8px;
+.widget-panel {
+  position: relative;
+  overflow-x: auto;
+  width: 100%;
+  height: 100%;
+  .card__main-panel {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    &.card__main-panel__embedded iframe {
+      height: 100% !important;
+      width: 100% !important;
+    }
   }
 }
 
-.widget-panel {
-  width: 100%;
-  height: 100%;
-  overflow: auto;
+@media(min-width: 840px) {
+  .widget-panel {
+    padding: 0 8px;
+    .card__main-panel {
+      width: calc(100% - 16px);
+    }
+  }
 }
+
 
 .deletemark {
   position: absolute;

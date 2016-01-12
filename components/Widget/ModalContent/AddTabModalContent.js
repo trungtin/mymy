@@ -2,12 +2,11 @@ import React, {PropTypes, Component} from 'react';
 import {Button, Tabs, Tab, Textfield} from 'react-mdl';
 import LinkView from './components/LinkView';
 import FeedView from './components/FeedView';
-import classNames from 'classnames';
 import Tooltip from '../../Tooltip';
 import {findDOMNode} from 'react-dom';
 
 function errorTooltip(error) {
-  return <h6 style={{margin: 0}}>{error}</h6>
+  return <h6 style={{margin: 0}}>{error}</h6>;
 }
 
 export default class AddTabModalContent extends Component {
@@ -36,11 +35,10 @@ export default class AddTabModalContent extends Component {
   onFeedPreview(previewFeed = {name: '', url: '', location: ''}) {
     const textField = findDOMNode(this.refs.textField);
     const input = textField.getElementsByTagName('input')[0];
-    if (input) {
-      input.value = previewFeed.name;
-      previewFeed.name !== '' ? textField.classList.add('is-dirty') : textField.classList.remove('is-dirty');
-      this.previewFeed = previewFeed;
-    }
+    input.value = previewFeed.name;
+    previewFeed.name !== '' ? textField.classList.add('is-dirty') : textField.classList.remove('is-dirty');
+    this.previewFeed = previewFeed;
+    console.log(previewFeed)
   }
 
   saveTab(event) {
@@ -48,14 +46,13 @@ export default class AddTabModalContent extends Component {
     if (!input.value || input.value === '') {
       return this.setState({inputError: errorTooltip('New tab name may not be blank !')});
     }
-    console.log(this.props.tabList, input.value)
     if (this.props.tabList.some((value) => value.toLowerCase() === input.value.toLowerCase())) {
       return this.setState({inputError: errorTooltip('This tab name already used !')});
     }
     if (this.state.tabId === 0) {
       this.props.link_addLinkTabToWidget(event, input.value);
     } else if (this.state.tabId === 1) {
-      this.props.feed_addFeedTabToWidget(event, input.value, {url: this.previewFeed.url, location: this.previewFeed.location});
+      this.props.feed_addFeedTabToWidget(event, input.value, this.previewFeed);
     }
     this.props.closeModal();
   }
@@ -67,13 +64,14 @@ export default class AddTabModalContent extends Component {
         <Tab>Link</Tab>
         <Tab>Feed</Tab>
       </Tabs>
-      <section>
+      <section style={{height: 'calc(100% - 8rem)'}}>
         { this.state.tabId === 0 &&
           <LinkView
             linkList={this.props.link_linkList}
             toBeAddedLinkList={this.props.link_toBeAddedLinkList}
             sortByCategory
             selectLinkToAdd={this.props.link_selectLinkToAdd}
+            style={{height: '100%'}}
           />
         }
         { this.state.tabId === 1 &&
