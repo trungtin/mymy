@@ -74,7 +74,7 @@ export function removeWidget(dispatch, widget) {
     return db.put(doc);
   }).then(response => {
     if (response.ok !== true) {
-      throw Error('Error while add new widget');
+      throw Error('Error while remove widget');
     }
   }).then(() => {
     dispatch(widgetActions.removeWidget(widget));
@@ -87,7 +87,7 @@ export function editWidgetSize(dispatch, widget, newSize) {
     return db.put(doc);
   }).then(response => {
     if (response.ok !== true) {
-      throw Error('Error while add new widget');
+      throw Error('Error while edit widget size');
     }
   }).then(() => {
     dispatch(widgetActions.editSize(widget, newSize));

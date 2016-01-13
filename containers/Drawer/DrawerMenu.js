@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import './DrawerMenu.scss';
 import classNames from 'classnames';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { connect } from 'react-redux';
 
 function replaceArrayItem(array, index, item) {
   return [
@@ -11,6 +12,7 @@ function replaceArrayItem(array, index, item) {
   ];
 }
 
+@connect()
 export default class DrawerMenu extends React.Component {
   static propTypes = {
     layer: PropTypes.number,
@@ -18,6 +20,7 @@ export default class DrawerMenu extends React.Component {
     menuItem: PropTypes.array.isRequired,
     closeYourself: PropTypes.func,
     title: PropTypes.string,
+    dispatch: PropTypes.func.isRequired,
   }
 
   constructor() {
@@ -60,15 +63,18 @@ export default class DrawerMenu extends React.Component {
                 <li className="drawer-menu__item-wrapper">
                   <button className={'drawer-menu__item colored__' + item[1]}
                     onClick={() =>
-                      item[2] && ( item[2].type === this.constructor ? this.setState({nextMenu:
+                      item[2] && ((item[2].type && item[2].type.WrappedComponent) === this.constructor ? this.setState({nextMenu:
                         React.cloneElement(item[2], {closeYourself: ::this.closeNextMenu,
                           color: item[1],
                           title: `${!!this.props.title && (this.props.title + ' ~ ') || ''}${item[0]}`,
                           layer: (this.props.layer || 0) + 1,
                         }),
-                      }) : this.toggleMenuItemSupplyElement(React.cloneElement(item[2], {
-                        close: () => this.toggleMenuItemSupplyElement(null, index),
-                      }), index)
+                      }) : (
+                        typeof item[2] === 'function' ? item[2](this.props.dispatch)
+                        : this.toggleMenuItemSupplyElement(React.cloneElement(item[2], {
+                          close: () => this.toggleMenuItemSupplyElement(null, index),
+                        }), index)
+                      )
                     )}>
                   <h6 style={{margin: 0}}>{item[0]}</h6></button>{ this.state.menuItemSupplyElement[index] }
                 </li> :

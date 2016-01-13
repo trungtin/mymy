@@ -24,7 +24,7 @@ const route = async (path, callback) => {
       return;
     }
     console.log('Failed when try to update link and feed data.');
-  }), 4000);
+  }), 10000);
   await callback(
     <Provider store={store}>
       <div>

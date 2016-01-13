@@ -86,7 +86,10 @@ export async function getInitialState() {
       if (err) window.console.log('No client data found, fetching from server...', err);
       return syncDB();
     }).then(doc => {
-      const storeInitialState = {widget: doc};
+      return db.get('configuration').then(conf => [doc, conf]).catch(() => Promise.resolve([doc, {}]));
+    }).then(docs => {
+      console.log('----', docs, '----');
+      const storeInitialState = {widget: docs[0], configuration: docs[1]};
       return storeInitialState;
     }).catch(err => window.console.log('Database error: ', err));
   } else {

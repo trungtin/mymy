@@ -1,9 +1,9 @@
 import { createStore as _createStore, applyMiddleware, compose } from 'redux';
-import clientMiddleware from './middleware/clientMiddleware';
+import databaseMiddleware from './middleware/databaseMiddleware';
 import {getInitialState} from '../syncDB';
 
 export default async function createStore() {
-  const middleware = [];
+  const middleware = [databaseMiddleware];
 
   let finalCreateStore;
 

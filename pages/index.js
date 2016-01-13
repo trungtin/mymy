@@ -7,11 +7,15 @@ import * as widgetActions from '../core/redux/modules/widget';
 
 const allowedWidth = typeof window !== 'undefined' && window.innerWidth > 1600 ? [null, '80%', '100%'] : [null, '100%'] || [];
 
-@connect(state => ({meta: state.widget.meta}))
+@connect(state => ({
+  meta: state.widget.meta,
+  bg: state.configuration.background,
+}))
 export default class extends Component {
   static propTypes = {
     meta: React.PropTypes.object,
     dispatch: React.PropTypes.func,
+    bg: React.PropTypes.string,
   }
   static defaultProps = {
     meta: {},
@@ -31,7 +35,10 @@ export default class extends Component {
 
   render() {
     return (
-      <Content style={{position: 'relative'}}>
+      <Content style={{
+        position: 'relative',
+        background: this.props.bg ? `url("${this.props.bg}") top left / cover` : ``,
+      }}>
         <section className="main-content" style={{width: this.state.extendedWidth}}>
           <Grid className="control-block">
             <Textfield floatingLabel label="Search..." />

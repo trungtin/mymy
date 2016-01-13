@@ -1,18 +1,86 @@
 import React, {PropTypes} from 'react';
 import './MainDrawer.scss';
 import DrawerMenu from './DrawerMenu';
-import { Textfield, Button } from 'react-mdl';
+import { Textfield, Button, Spinner } from 'react-mdl';
+import * as configurationAction from '../../core/redux/modules/configuration';
+import { connect } from 'react-redux';
+import request from 'superagent';
+import {findDOMNode} from 'react-dom';
 
-const BackgroundFromUrl = (props) => {
-  return (<div style={{padding: '0 2rem'}}>
-    <Textfield label="Url..." style={{width: 'initial'}}/>
-    <section>
-      <Button raised accent>Set</Button>
-      <Button raised colored>Preview</Button>
-      <Button onClick={() => props.close()}>Cancel</Button>
-    </section>
-  </div>);
-};
+@connect(state => ({
+  bg: state.configuration.background,
+}))
+class BackgroundFromUrl extends React.Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    close: PropTypes.func.isRequired,
+    bg: PropTypes.string,
+  }
+
+  constructor() {
+    super();
+    this.state = {
+      setting: false,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.bg !== this.props.bg) {
+      this.setState({setting: false});
+    }
+  }
+
+  errorHappen() {
+    this.setState({setting: false});
+    findDOMNode(this.refs.textfield).classList.add('is-invalid');
+  }
+
+  render() {
+    return (<div style={{padding: '0 2rem', paddingBottom: '1rem', borderBottom: '1px solid rgb(187, 187, 187)'}}>
+      <Textfield id="background-from-url__input" label="Url..."
+        pattern="-?.*?"
+        error="Error Happen!"
+        style={{width: 'initial', marginTop: '-2rem'}} ref="textfield"/>
+      <section>
+        <Button raised accent onClick={() => {
+          if (this.state.setting === true) {
+            return;
+          }
+          this.setState({setting: true});
+          const inputValue = document.getElementById('background-from-url__input').value;
+          if (inputValue && inputValue.length) {
+            const originalXHR = request.getXHR;
+            request.getXHR = () => {
+              const xhr = originalXHR();
+              xhr.responseType = 'blob';
+              return xhr;
+            };
+            request
+              .get(inputValue)
+              .set('Accept', 'image/*')
+              .end((err, res) => {
+                if (err) return this.errorHappen();
+                console.log(res)
+                if (res.type.startsWith('image')) {
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    // console.log('reader result: ', reader.result)
+                    // const data = 'data:' + res.headers['content-type'] + ';base64,' + reader.result;
+                    this.props.dispatch(configurationAction.setBackground(reader.result));
+                  };
+                  reader.readAsDataURL(res.xhr.response);
+                } else {
+                  return this.errorHappen();
+                }
+              });
+            request.getXHR = originalXHR;
+          }
+        }}>{this.state.setting && <Spinner /> || 'Set'}</Button>
+        <Button onClick={() => this.props.close()}>Cancel</Button>
+      </section>
+    </div>);
+  }
+}
 
 const menuStructure = [
   [
@@ -33,6 +101,12 @@ const menuStructure = [
           ], [
             'Upload image',
             'blue',
+          ], [
+            'Clear Background',
+            'pink',
+            (dispatch) => {
+              dispatch(configurationAction.setBackground(null));
+            },
           ],
         ]}/>,
       ],
@@ -76,6 +150,7 @@ const menuStructure = [
 ];
 
 const MainDrawer = () => {
+  console.log(BackgroundFromUrl, MainDrawer);
   return (
     <div>
       <div className="drawer-content">
