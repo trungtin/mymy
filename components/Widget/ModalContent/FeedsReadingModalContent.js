@@ -28,6 +28,7 @@ export default class FeedsReadingModalContent extends React.Component {
   static propTypes = {
     article: PropTypes.object,
     requestNext: PropTypes.func,
+    meta: PropTypes.object,
   }
 
   constructor() {
@@ -130,6 +131,8 @@ export default class FeedsReadingModalContent extends React.Component {
   }
 
   editIframeContent() {
+    // testing.
+    return;
     const articleNodeList = this.refs.articleWrapper.getElementsByClassName('feed-reading__wrapper unedited-iframe-content');
     const eventMapping = new Map([]);
     const self = this;
@@ -165,12 +168,12 @@ export default class FeedsReadingModalContent extends React.Component {
   }
 
   render() {
-    const article = ({title, author, image, summary, date, meta} = {}) => {
-      const fixedSummary = summary && summary.replace(/src=\"\//gim, `src="${meta.link}/`);
+    const article = ({title, author, image, summary, date} = {}) => {
+      const fixedSummary = summary && summary.replace(/src=\"\//gim, `src="${this.props.meta.link}/`);
       return (
         <article className="feed-reading__wrapper unedited-iframe-content">
           <h4 className="feed-reading__title">{title}</h4>
-          <em>By {author} | {date.toDateString()}</em>
+          <em>By {author} | {new Date(date).toDateString()}</em>
           <br/><br/><br/>
           <img src={image && (image.link || image.url)} alt=""/>
           <section dangerouslySetInnerHTML={{ __html: fixedSummary}} className="feed-reading__content" />

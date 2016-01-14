@@ -16,6 +16,7 @@ function Html({ title, description, body, debug }) {
         <link rel="stylesheet" href="material.css" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <script src={'/app.js?' + new Date().getTime()} />
+        <script src="https://cdn.rawgit.com/richardkazuomiller/feednami-client/master/releases/1.0.2.min.js"></script>
       </head>
       <body>
         <div id="fb-root"></div>

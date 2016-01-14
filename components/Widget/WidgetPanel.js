@@ -13,7 +13,7 @@ const WidgetPanel = (props) => {
   const feedElement = (feed, index, feeds) => _feedElement(feed, index, (event) => {
     let _index = index;
     !props.content.partial_content && props.openModal(event, {element: (
-      <FeedsReadingModalContent article={feed} requestNext={() => {
+      <FeedsReadingModalContent article={feed} meta={props.content.meta} requestNext={() => {
         const nextFeed = requestNext(feeds, _index++);
         if (!nextFeed) {
           return false;
