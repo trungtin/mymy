@@ -166,7 +166,7 @@ export default class FeedsReadingModalContent extends React.Component {
 
   render() {
     const article = ({title, author, image, summary, date, meta} = {}) => {
-      const fixedSummary = summary.replace(/src=\"\//gim, `src="${meta.link}/`);
+      const fixedSummary = summary && summary.replace(/src=\"\//gim, `src="${meta.link}/`);
       return (
         <article className="feed-reading__wrapper unedited-iframe-content">
           <h4 className="feed-reading__title">{title}</h4>
@@ -178,7 +178,7 @@ export default class FeedsReadingModalContent extends React.Component {
     };
 
     return (
-      <div style={{overflow: 'auto'}} ref="articleWrapper">
+      <div style={{overflow: 'auto', width: '100%'}} ref="articleWrapper">
         {article(this.props.article)}
         <em>From the same channel: </em>
         { !!this.state.additionArticle.length &&

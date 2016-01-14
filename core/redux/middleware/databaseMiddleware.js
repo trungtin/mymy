@@ -1,5 +1,8 @@
 export default function databaseMiddleware({dispatch, getState}) {
-  const db = new window.PouchDB('mymy-db');
+  let db;
+  if (typeof window !== 'undefined') {
+    db = new window.PouchDB('mymy-db');
+  }
   return next => action => {
     if (typeof action === 'function') {
       return action(dispatch, getState);
@@ -11,7 +14,7 @@ export default function databaseMiddleware({dispatch, getState}) {
       return next(action);
     }
 
-    db.get(dbTable).catch(() => ({_id: dbTable})).then(doc => {
+    db && db.get(dbTable).catch(() => ({_id: dbTable})).then(doc => {
       if (typeof mergeFunction === 'function') {
         const _doc = mergeFunction(doc);
         return db.put(_doc);

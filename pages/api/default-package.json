@@ -1,0 +1,403 @@
+{
+  "link": {
+    "facebook": {
+      "name": "Facebook",
+      "url": "https://facebook.com/",
+      "icon": "",
+      "category": ["Essential", "Social"]
+    },
+    "google": {
+      "name": "Google",
+      "url": "https://google.com/",
+      "icon": "/brands_logo/google_logo.png",
+      "category": ["Essential", "Search Engine"]
+    },
+    "bing": {
+      "name": "Bing",
+      "url": "https://bing.com/",
+      "icon": "",
+      "category": ["Search Engine"]
+    },
+    "yahoo": {
+      "name": "Yahoo",
+      "url": "https://yahoo.com/",
+      "icon": "",
+      "category": ["Search Engine", "Social"]
+    },
+    "twitter": {
+      "name": "Twitter",
+      "url": "https://twitter.com/",
+      "icon": "/brands_logo/twitter_logo_blue.png",
+      "category": ["Essential", "Social"]
+    },
+    "reddit": {
+      "name": "Reddit",
+      "url": "https://reddit.com/",
+      "icon": "",
+      "category": ["Essential", "Social"]
+    },
+    "youtube": {
+      "category": ["Essential", "Video"],
+      "url": "https://youtube.com",
+      "icon": "https://s.ytimg.com/yts/img/favicon_144-vflWmzoXw.png"
+    },
+    "quora": {
+      "name": "Quora",
+      "category": ["Social", "Discussion"],
+      "url": "https://quora.com",
+      "icon": ""
+    },
+    "cnn": {
+      "name": "CNN",
+      "url": "http://edition.cnn.com/",
+      "icon": "http://i.cdn.turner.com/cnn/.e/img/3.0/global/misc/apple-touch-icon.png",
+      "category": ["Essential", "News"],
+      "partial_content": true
+    },
+    "foxnews": {
+      "name": "Fox News",
+      "url": "http://foxnews.com/",
+      "icon": "",
+      "category": ["News"],
+      "partial_content": true
+    },
+    "reuters": {
+      "name": "Reuters",
+      "url": "https://www.reuters.com/",
+      "icon": "/brands_logo/reuters_logo.png",
+      "category": ["Essential", "News"]
+    },
+    "bbc": {
+      "name": "BBC",
+      "url": "https://www.bbc.co.uk/news",
+      "icon": "https://lh5.googleusercontent.com/-Em-drWQ3uYI/AAAAAAAAAAI/AAAAAAACfJU/NI-CDZF6qyI/s0-c-k-no-ns/photo.jpg",
+      "category": ["Essential", "News"]
+    },
+    "wsj": {
+      "name": "WSJ",
+      "url": "http://www.wsj.com/",
+      "icon": "http://www.wsj.com/apple-touch-icon.png",
+      "category": ["Essential", "News"]
+    },
+    "techcrunch": {
+      "name": "TechCrunch",
+      "url": "https://www.techcrunch.com/",
+      "icon": "https://s0.wp.com/wp-content/themes/vip/techcrunch-2013/assets/images/homescreen_TCIcon_ipad_2x.png",
+      "category": ["News", "Technology"]
+    },
+    "hackernews": {
+      "name": "Hacker News",
+      "url": "https://news.ycombinator.com/",
+      "icon": "",
+      "category": ["News", "Social", "Technology"]
+    },
+    "engadget": {
+      "name": "Engadget",
+      "url": "https://www.engadget.com",
+      "icon": "http://www.blogsmithmedia.com/www.engadget.com/assets-de656b4889f628881dabd59b88d24460/images/apple-touch-icon-144x144.png",
+      "category": ["News", "Technology"]
+    },
+    "thenextweb": {
+      "name": "The Next Web",
+      "url": "https://www.thenextweb.com",
+      "icon": "",
+      "category": ["News", "Technology"]
+    },
+    "polygon": {
+      "category": ["News", "Technology"],
+      "icon": "http://www.polygon.com/images/polygon/apple-touch-icon.png",
+      "url": "https://www.polygon.com"
+    },
+    "kotaku": {
+      "category": ["News", "Gaming"],
+      "icon": "http://i.kinja-img.com/gawker-media/image/upload/s--XYjAnDao--/c_fill,fl_progressive,g_center,h_200,q_80,w_200/ghxlwgdztvqerb4zptdx.png",
+      "url": "http://kotaku.com"
+    },
+    "lifehacker": {
+      "category": ["News", "Technology"],
+      "icon": "http://i.kinja-img.com/gawker-media/image/upload/s--OqAhAoNZ--/c_fill,fl_progressive,g_center,h_200,q_80,w_200/u0939doeuioaqhspkjyc.png",
+      "url": "http://lifehacker.com"
+    },
+    "hackerspace": {
+      "category": ["News", "Technology"],
+      "icon": "http://i.kinja-img.com/gawker-media/image/upload/s--Ht3zx4mu--/c_fill,fl_progressive,g_center,h_200,q_80,w_200/i90zdo3vk9z9ax6ciiez.png",
+      "url": "http://hackerspace.kinja.com"
+    },
+    "deadspin": {
+      "category": ["News"],
+      "icon": "http://i.kinja-img.com/gawker-media/image/upload/s--iIvh_25i--/c_fill,fl_progressive,g_center,h_200,q_80,w_200/rnxqtvv6advgidzfs6am.png",
+      "url": "http://deadspin.com"
+    },
+    "whitenoise": {
+      "category": ["News"],
+      "icon": "http://i.kinja-img.com/gawker-media/image/upload/s--18PdzOMt--/c_fill,fl_progressive,g_center,h_200,q_80,w_200/phxyj2blisncinklsfgo.gif"
+    },
+    "gizmodo": {
+      "category": ["News"],
+      "icon": "http://i.kinja-img.com/gawker-media/image/upload/s---erriNCS--/c_fill,fl_progressive,g_center,h_200,q_80,w_200/fdj3buryz5nuzyf2k620.png"
+    },
+    "io9": {
+      "category": ["News"],
+      "icon": "http://i.kinja-img.com/gawker-media/image/upload/s---5Pxwo2n--/c_fill,fl_progressive,g_center,h_200,q_80,w_200/eh1hvjxamru5z6aobgwc.png"
+    },
+    "jezebel": {
+      "category": ["News"],
+      "icon": "http://i.kinja-img.com/gawker-media/image/upload/s--2gXbBeUI--/c_fill,fl_progressive,g_center,h_200,q_80,w_200/pch44wvo0v6acpdlt0f6.png"
+    },
+    "sploid": {
+      "category": ["News"],
+      "icon": "http://i.kinja-img.com/gawker-media/image/upload/s--8bO95fLL--/c_fill,fl_progressive,g_center,h_200,q_80,w_200/fdmagj52rhclnn6dfoig.png"
+    },
+    "eatingwell": {
+      "category": ["Food"],
+      "icon": "http://www.eatingwell.com/apple-touch-icon-precomposed.png",
+      "url": "http://eatingwell.com"
+    },
+    "gamespot": {
+      "category": ["Gaming"],
+      "icon": "",
+      "url": "https://gamespot.com"
+    },
+    "ign": {
+      "category": ["Gaming"],
+      "icon": "http://de.ign.com/apple-touch-icon.png",
+      "url": "http://ign.com"
+    },
+    "games rada": {
+      "category": ["Gaming"],
+      "icon": "",
+      "url": "http://gamesradar.com"
+    },
+    "1up": {
+      "category": ["Gaming"],
+      "icon": "",
+      "url": "http://1up.com"
+    }
+  },
+  "feed": {
+    "youtube": {
+      "Channel": {
+        "require": ["Channel"],
+        "url": "https://www.youtube.com/feeds/videos.xml?channel_id=${0}"
+      },
+      "User": {
+        "require": ["User"],
+        "url": "https://www.youtube.com/feeds/videos.xml?user=${0}"
+      },
+      "Playlist": {
+        "require": ["Playlist"],
+        "url": "https://www.youtube.com/feeds/videos.xml?playlist_id=${0}"
+      }
+    },
+    "twitter": {
+      "User timeline": {
+        "require": ["User_name"],
+        "__html": "<a class='twitter-timeline' data-widget-id='600724936517242880' href='https://twitter.com/${0}' data-screen-name='${0}'>Tweets by @${0}</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','twitter-wjs');</script>"
+      },
+      "List timeline": {
+        "require": ["Owner name", "List name"],
+        "__html": "<a class='twitter-timeline' data-widget-id='600724936517242880' href='https://twitter.com/${0}/lists/${1}' data-list-owner-screen-name='${0}' data-list-slug='${1}'>Tweets from https://twitter.com/${0}/lists/${1}</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','twitter-wjs');</script>"
+      }
+    },
+    "facebook": {
+      "timeline": {
+        "require": ["Page Name/ID"],
+        "__html": "<div class='fb-page' data-href='https://www.facebook.com/${0}' data-tabs='timeline' data-width='${w}' data-height='${h}' data-small-header='true' data-adapt-container-width='true' data-hide-cover='false' data-show-facepile='true'><div class='fb-xfbml-parse-ignore'><blockquote cite='https://www.facebook.com/${0}'><a href='https://www.facebook.com/${0}'>${0}</a></blockquote></div></div>"
+      }
+    },
+    "quora": {
+      "Top question": {
+        "url": "https://www.quora.com/rss"
+      },
+      "Topic": {
+        "require": ["Topic_name"],
+        "url": "https://www.quora.com/topic/${0}/rss"
+      },
+      "User profile": {
+        "require": ["User_name"],
+        "url": "https://www.quora.com/profile/${0}/rss"
+      },
+      "User questions": {
+        "require": ["User_name"],
+        "url": "https://www.quora.com/profile/${0}/questions/rss"
+      },
+      "User answers": {
+        "require": ["User_name"],
+        "url": "https://www.quora.com/profile/${0}/answers/rss"
+      }
+    },
+    "cnn": {
+      "top": {
+        "url": "http://rss.cnn.com/rss/edition.rss"
+      },
+      "world": {
+        "url": "http://rss.cnn.com/rss/edition_world.rss"
+      },
+      "africa": {
+        "url": "http://rss.cnn.com/rss/edition_africa.rss"
+      },
+      "americas": {
+        "url": "http://rss.cnn.com/rss/edition_americas.rss"
+      },
+      "asia": {
+        "url": "http://rss.cnn.com/rss/edition_asia.rss"
+      },
+      "europe": {
+        "url": "http://rss.cnn.com/rss/edition_europe.rss"
+      },
+      "middle East": {
+        "url": "http://rss.cnn.com/rss/edition_meast.rss"
+      },
+      "u.s.": {
+        "url": "http://rss.cnn.com/rss/edition_us.rss"
+      },
+      "money": {
+        "url": "http://rss.cnn.com/rss/money_news_international.rss"
+      },
+      "technology": {
+        "url": "http://rss.cnn.com/rss/edition_technology.rss"
+      },
+      "space": {
+        "url": "http://rss.cnn.com/rss/edition_space.rss"
+      },
+      "entertainment": {
+        "url": "http://rss.cnn.com/rss/edition_entertainment.rss"
+      },
+      "sport": {
+        "url": "http://rss.cnn.com/rss/edition_sport.rss"
+      },
+      "football": {
+        "url": "http://rss.cnn.com/rss/edition_football.rss"
+      },
+      "golf": {
+        "url": "http://rss.cnn.com/rss/edition_golf.rss"
+      },
+      "motorsport": {
+        "url": "http://rss.cnn.com/rss/edition_motorsport.rss"
+      },
+      "tennis": {
+        "url": "http://rss.cnn.com/rss/edition_tennis.rss"
+      },
+      "travel": {
+        "url": "http://rss.cnn.com/rss/edition_travel.rss"
+      },
+      "video": {
+        "url": "http://rss.cnn.com/rss/cnn_freevideo.rss"
+      },
+      "latest": {
+        "url": "http://rss.cnn.com/rss/cnn_latest.rss"
+      }
+    },
+    "foxnews": {
+      "latest": {
+        "url": "http://feeds.foxnews.com/foxnews/latest?format=xml"
+      },
+      "tech": {
+        "url": "http://feeds.foxnews.com/foxnews/tech?format=xml"
+      },
+      "science": {
+        "url": "http://feeds.foxnews.com/foxnews/science?format=xml"
+      },
+      "world": {
+        "url": "http://feeds.foxnews.com/foxnews/world?format=xml"
+      },
+      "entertainment": {
+        "url": "http://feeds.foxnews.com/foxnews/leisure?format=xml"
+      },
+      "health": {
+        "url": "http://feeds.foxnews.com/foxnews/health?format=xml"
+      }
+    },
+    "polygon": {
+      "default": {
+        "url": "https://www.polygon.com/rss/index.xml"
+      },
+      "news": {
+        "url": "https://www.polygon.com/rss/group/news/index.xml"
+      },
+      "reviews": {
+        "url": "https://www.polygon.com/rss/group/reviews/index.xml"
+      },
+      "features": {
+        "url": "https://www.polygon.com/rss/group/features/index.xml"
+      },
+      "videos": {
+        "url": "https://www.polygon.com/rss/group/videos/index.xml"
+      },
+      "nintendo": {
+        "url": "https://www.polygon.com/rss/group/nintendo/index.xml"
+      },
+      "pc": {
+        "url": "https://www.polygon.com/rss/group/pc/index.xml"
+      },
+      "ps4": {
+        "url": "https://www.polygon.com/rss/group/ps4/index.xml"
+      },
+      "xbox-one": {
+        "url": "https://www.polygon.com/rss/group/xbox-one/index.xml"
+      },
+      "mobile": {
+        "url": "https://www.polygon.com/rss/group/mobile/index.xml"
+      }
+    },
+    "kotaku": {
+      "vip": {
+        "url": "http://kotaku.com/rss/vip"
+      }
+    },
+    "lifehacker": {
+      "vip": {
+        "url": "http://lifehacker.com/rss/vip"
+      }
+    },
+    "hackerspace": {
+      "vip": {
+        "url": "http://hackerspace.kinja.com/rss/vip"
+      }
+    },
+    "deadspin": {
+      "vip": {
+        "url": "http://deadspin.com/rss/vip"
+      }
+    },
+    "whitenoise": {
+      "vip": {
+        "url": "http://whitenoise.kinja.com/rss/vip"
+      }
+    },
+    "gizmodo": {
+      "vip": {
+        "url": "http://gizmodo.com/rss/vip"
+      }
+    },
+    "io9": {
+      "vip": {
+        "url": "http://io9.gizmodo.com/rss/vip"
+      }
+    },
+    "jezebel": {
+      "vip": {
+        "url": "http://jezebel.com/rss/vip"
+      }
+    },
+    "sploid": {
+      "vip": {
+        "url": "http://sploid.gizmodo.com/rss/vip"
+      }
+    },
+    "eatingwell": {
+      "make_it_tonight": {
+        "url": "https://feeds.feedburner.com/eatingwell_make_it_tonight?format=xml"
+      },
+      "menus": {
+        "url": "https://feeds.feedburner.com/eatingwell_menus?format=xml"
+      },
+      "blogs": {
+        "url": "https://feeds.feedburner.com/EatingwellBlogs-AllBlogPosts?format=xml"
+      },
+      "recipe_slideshows": {
+        "url": "https://feeds.feedburner.com/eatingwell_recipe_slideshows?format=xml"
+      }
+    }
+  }
+}

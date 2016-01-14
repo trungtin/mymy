@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import './FeedView.scss';
 import fetchFeed from '../../lib/fetchFeed';
 import FeedsReadingModalContent from '../FeedsReadingModalContent';
-import {Grid, Cell, Spinner, Icon, Button, Textfield} from 'react-mdl';
+import {Grid, Cell, Spinner, Icon, Button, Textfield, Tooltip as TooltipMDL} from 'react-mdl';
 import _feedElement from '../../lib/feedElement';
 import Tooltip from '../../../Tooltip';
 import {findDOMNode} from 'react-dom';
@@ -11,8 +11,8 @@ import EmbeddedContent from '../../EmbeddedContent';
 
 export default class FeedView extends Component {
   static propTypes = {
-    feedList: PropTypes.array,
-    linkList: PropTypes.array,
+    feedList: PropTypes.object,
+    linkList: PropTypes.object,
     openModal: PropTypes.func,
     onFeedPreview: PropTypes.func.isRequired,
   };
@@ -62,6 +62,7 @@ export default class FeedView extends Component {
       selectedFeed: feedName || this.state.selectedFeed,
       [isRequire]: {
         ...subFeedObj,
+        partial_content: this.props.linkList[feedName].partial_content,
         name: notUsingName ? undefined : subFeedName,
         location: `${feedName || this.state.selectedFeed}#${subFeedName}`,
       },
@@ -70,10 +71,10 @@ export default class FeedView extends Component {
 
   render() {
     const feedElement = (feed, index) => _feedElement(feed, index, (event) => {
-      this.props.openModal(event, {element: (
-        <FeedsReadingModalContent title={feed.title} article={feed.summary} mainImgSrc={feed.image.url}/>
+      !this.state.selectedSubFeedObj.partial_content && this.props.openModal(event, {element: (
+        <FeedsReadingModalContent key={feed.guid} article={feed}/>
         )}, null, null, true);
-    }, this.state.fetchedFeed.url);
+    }, this.state.fetchedFeed.url, this.state.selectedSubFeedObj.partial_content && <TooltipMDL label="Partial Content" style={{cursor: 'pointer'}}><Icon name="border_style"/></TooltipMDL> || undefined);
     return (<Grid className="feed-view-wrapper">
       <Cell col={12}>
         <section className="feed-view">
@@ -85,7 +86,7 @@ export default class FeedView extends Component {
               const isStacking = Object.keys(this.props.feedList[feedName]).length > 1;
               const feedClassName = classNames({'stacking-layer': isStacking}, 'feed-view__thumbnail');
               const link = this.props.linkList[feedName];
-              return (<div style={{display: 'inline-block'}}>
+              return (<div key={feedName} style={{display: 'inline-block'}}>
                   <div key={`link-${index}`} id={'feed-' + index} className={feedClassName}
                     style={{position: 'relative', cursor: 'pointer', display: 'inline-block', margin: 8, width: 48, height: 48}}
                     onClick={() => {
@@ -148,7 +149,7 @@ export default class FeedView extends Component {
             <div className="feed-view__sub-feed-selector">
               <ul className="feed-view__sub-feed-selector-content">
                 {Object.keys(this.props.feedList[this.state.selectedFeed]).map(subFeed =>
-                  <li onClick={() => this.onSubFeedSelect(subFeed)}>
+                  <li key={subFeed} onClick={() => this.onSubFeedSelect(subFeed)}>
                     {subFeed}
                   </li>
                 )}

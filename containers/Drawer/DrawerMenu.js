@@ -60,7 +60,7 @@ export default class DrawerMenu extends React.Component {
           <ul>
             { this.props.menuItem.map((item, index) =>
               Array.isArray(item) ?
-                <li className="drawer-menu__item-wrapper">
+                <li className="drawer-menu__item-wrapper" key={item[0]}>
                   <button className={'drawer-menu__item colored__' + item[1]}
                     onClick={() =>
                       item[2] && ((item[2].type && item[2].type.WrappedComponent) === this.constructor ? this.setState({nextMenu:

@@ -17,6 +17,8 @@ $green: #4caf50;
   &.outmost-menu {
     top: 25%;
     left: -2px;
+    border-top: solid 1px #bbb;
+    box-shadow: 0 -2px 2px 0 rgba(0, 0, 0, 0.14);
   }
   &.drawer-menu__wrapper-enter, &.drawer-menu__wrapper-leave {
     opacity: 0;

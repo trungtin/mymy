@@ -60,12 +60,9 @@ class BackgroundFromUrl extends React.Component {
               .set('Accept', 'image/*')
               .end((err, res) => {
                 if (err) return this.errorHappen();
-                console.log(res)
                 if (res.type.startsWith('image')) {
                   const reader = new FileReader();
                   reader.onloadend = () => {
-                    // console.log('reader result: ', reader.result)
-                    // const data = 'data:' + res.headers['content-type'] + ';base64,' + reader.result;
                     this.props.dispatch(configurationAction.setBackground(reader.result));
                   };
                   reader.readAsDataURL(res.xhr.response);
@@ -150,11 +147,13 @@ const menuStructure = [
 ];
 
 const MainDrawer = () => {
-  console.log(BackgroundFromUrl, MainDrawer);
   return (
-    <div>
+    <div style={{height: '100%'}}>
       <div className="drawer-content">
-        <div className="drawer-header"></div>
+        <div className="drawer-header">
+          <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=150%C3%97150&w=150&h=150" alt="Profile"/>
+          <h5>Profile name</h5>
+        </div>
         <DrawerMenu menuItem={menuStructure}/>
       </div>
     </div>

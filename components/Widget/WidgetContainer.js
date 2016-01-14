@@ -148,7 +148,6 @@ export default class WidgetContainer extends Component {
   }
 
   render() {
-    console.log('widget container render')
     let gridContent = undefined;
     if (this.state.data && Object.keys(this.state.data).length) {
       gridContent = structureWidget(this.state.data, this);

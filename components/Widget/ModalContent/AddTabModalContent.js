@@ -12,13 +12,13 @@ function errorTooltip(error) {
 export default class AddTabModalContent extends Component {
 
   static propTypes = {
-    link_linkList: PropTypes.array,
+    link_linkList: PropTypes.object,
     link_selectLinkToAdd: PropTypes.func.isRequired,
     link_addLinkTabToWidget: PropTypes.func.isRequired,
     openModal: PropTypes.func,
     closeModal: PropTypes.func,
     link_toBeAddedLinkList: PropTypes.array,
-    feed_feedList: PropTypes.array,
+    feed_feedList: PropTypes.object,
     feed_addFeedTabToWidget: PropTypes.func,
     tabList: PropTypes.array,
   }
@@ -38,7 +38,6 @@ export default class AddTabModalContent extends Component {
     input.value = previewFeed.name;
     previewFeed.name !== '' ? textField.classList.add('is-dirty') : textField.classList.remove('is-dirty');
     this.previewFeed = previewFeed;
-    console.log(previewFeed)
   }
 
   saveTab(event) {
@@ -58,7 +57,6 @@ export default class AddTabModalContent extends Component {
   }
 
   render() {
-    console.log('feed modal render')
     return (<div style={{width: '100%'}}>
       <Tabs ripple activeTab={0} onChange={(tabId) => this.setState({tabId})}>
         <Tab>Link</Tab>

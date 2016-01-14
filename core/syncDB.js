@@ -22,7 +22,7 @@ export async function updateDB(db, result, onUpdated) {
   if (!result) {
     try {
       _result = await new Promise((res, rej) => {
-        request.get('/api/index.json').set('Accept', 'application/json').end((err, response) => {
+        request.get('/api/default-package.json').set('Accept', 'application/json').end((err, response) => {
           if (err) return rej(err);
           return res(response);
         });
@@ -64,12 +64,15 @@ async function syncDB() {
       if (error) {
         return rej(error);
       }
-      return db.put({
+      return db.bulkDocs([{
         _id: 'widget',
         ...result.body.widget,
-      })
+      }, {
+        _id: 'configuration',
+        ...result.body.configuration,
+      }])
       .then(() => {
-        return updateDB(db, result);
+        return updateDB(db);
       })
       .catch((dbErr) => {
         window.console.log('There was an error with database: ', dbErr);
@@ -88,7 +91,6 @@ export async function getInitialState() {
     }).then(doc => {
       return db.get('configuration').then(conf => [doc, conf]).catch(() => Promise.resolve([doc, {}]));
     }).then(docs => {
-      console.log('----', docs, '----');
       const storeInitialState = {widget: docs[0], configuration: docs[1]};
       return storeInitialState;
     }).catch(err => window.console.log('Database error: ', err));

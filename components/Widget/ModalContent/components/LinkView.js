@@ -28,7 +28,7 @@ const sortByCategory = (list) => {
 
 export default class LinkView extends React.Component {
   static propTypes = {
-    linkList: PropTypes.array,
+    linkList: PropTypes.object,
     selectLinkToAdd: PropTypes.func,
     toBeAddedLinkList: PropTypes.array,
     sortByCategory: PropTypes.bool,
@@ -66,7 +66,7 @@ export default class LinkView extends React.Component {
           <div>{Object.keys(this.sorted).map(category => {
             const catExpanded = this.state.expanded.has(category);
             return (
-            <section style={{position: 'relative', minHeight: 48}}>
+            <section key={category} style={{position: 'relative', minHeight: 48}}>
               <FABButton mini riple onClick={() =>{
                 if (catExpanded) {
                   this.state.expanded.delete(category);

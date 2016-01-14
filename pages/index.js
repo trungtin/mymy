@@ -38,6 +38,7 @@ export default class extends Component {
       <Content style={{
         position: 'relative',
         background: this.props.bg ? `url("${this.props.bg}") top left / cover` : ``,
+        boxSizing: 'content-box',
       }}>
         <section className="main-content" style={{width: this.state.extendedWidth}}>
           <Grid className="control-block">

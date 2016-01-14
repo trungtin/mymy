@@ -2,3 +2,17 @@
   height: 100%;
   overflow-x: hidden;
 }
+
+.drawer-header {
+  height: 25%;
+  text-align: center;
+  img {
+    display: block;
+    max-height: 65%;
+    margin: 0 auto;
+  }
+  h5 {
+    margin-top: 18px;
+    font-weight: 300;
+  }
+}
