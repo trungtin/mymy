@@ -168,15 +168,16 @@ export default class FeedsReadingModalContent extends React.Component {
   }
 
   render() {
-    const article = ({title, author, image, summary, date} = {}) => {
-      const fixedSummary = summary && summary.replace(/src=\"\//gim, `src="${this.props.meta.link}/`);
+    const article = ({title, author, image, summary, date, description} = {}) => {
+      const content = summary || description;
+      const fixedContent = content && content.replace(/src=\"\//gim, `src="${this.props.meta.link}/`);
       return (
         <article className="feed-reading__wrapper unedited-iframe-content">
           <h4 className="feed-reading__title">{title}</h4>
           <em>By {author} | {new Date(date).toDateString()}</em>
           <br/><br/><br/>
           <img src={image && (image.link || image.url)} alt=""/>
-          <section dangerouslySetInnerHTML={{ __html: fixedSummary}} className="feed-reading__content" />
+          <section dangerouslySetInnerHTML={{ __html: fixedContent}} className="feed-reading__content" />
         </article>);
     };
 
