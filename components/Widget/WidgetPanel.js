@@ -21,7 +21,7 @@ const WidgetPanel = (props) => {
         return nextFeed;
       }}/>
       )}, props.tabKey);
-  }, props.content.url, props.content.partial_content && <Tooltip label="Partial Content" style={{cursor: 'pointer'}}><Icon name="border_style"/></Tooltip> || undefined);
+  }, props.content.url, <Tooltip label={`${props.content.partial_content ? 'Partial' : 'Full'} Content`} style={{cursor: 'pointer'}}><Icon name={props.content.partial_content ? 'border_style' : 'check_box_outline_blank'}/></Tooltip> || undefined);
 
   return (
       <div className="widget-panel">
