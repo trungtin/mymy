@@ -1,0 +1,34 @@
+.calendar-month-name {
+  text-align: center;
+  padding: 1rem;
+}
+
+.calendar-month{
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transform: translateX(0);
+  opacity: 1;
+}
+.calendar-month-enter {
+  position: absolute;
+  top: 0;
+  transform: translateX(30%);
+  opacity: 0;
+}
+.calendar-month--left-enter {
+  position: absolute;
+  top: 0;
+  transform: translateX(-30%);
+  opacity: 0;
+}
+.calendar-month-leave.calendar-month-leave-active {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  opacity: 0;
+}
+.calendar-month--left-leave.calendar-month--left-leave-active {
+  position: absolute;
+  top: 0;
+  transform: translateX(50%);
+  opacity: 0;
+}

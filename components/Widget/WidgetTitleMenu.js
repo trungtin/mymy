@@ -3,7 +3,7 @@ import {Menu, MenuItem, IconButton, Icon, CardTitle, FABButton, Tabs, Tab, Butto
 import {connect} from 'react-redux';
 import {findDOMNode} from 'react-dom';
 import Tooltip from '../Tooltip';
-import {removeTab, removeWidget, editWidgetSize} from './lib/actions';
+import {removeTab, removeWidget, editWidgetSize, toggleTabbar} from './lib/actions';
 import './WidgetTitleMenu.scss';
 import NumberSelectable from '../NumberSelectable';
 
@@ -19,6 +19,7 @@ export default class WidgetTitleMenu extends Component {
     widgetKey: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     size: PropTypes.array.isRequired,
+    hideTabbar: PropTypes.bool,
   }
 
   constructor() {
@@ -44,17 +45,19 @@ export default class WidgetTitleMenu extends Component {
     return (
       <div>
         <CardTitle style={{justifyContent: 'space-between', padding: '0px 16px', position: 'relative'}} ref="titleMenu">
-          <Tabs ripple activeTab={0} onChange={this.props.onTabChange}>
-            { this.props.tabs && this.props.tabs.map((tab, index) =>
-              <Tab key={`tab-${index}`} ref={`tab-${index}`}>
-                { this.state.deletingTab &&
-                  <Icon name="highlight_off" ripple className= "delete-tab__mark" onClick={() => {
-                    this.setState({confirmDeleteTooltipPos: this.calcTooltipPosition(findDOMNode(this.refs[`tab-${index}`])), deleteTab: tab});
-                  }}/>
-                }
-                {tab}
-              </Tab>)}
-          </Tabs>
+          { !this.props.hideTabbar &&
+            <Tabs ripple activeTab={0} onChange={this.props.onTabChange}>
+              { this.props.tabs && this.props.tabs.map((tab, index) =>
+                <Tab key={`tab-${index}`} ref={`tab-${index}`}>
+                  { this.state.deletingTab &&
+                    <Icon name="highlight_off" ripple className= "delete-tab__mark" onClick={() => {
+                      this.setState({confirmDeleteTooltipPos: this.calcTooltipPosition(findDOMNode(this.refs[`tab-${index}`])), deleteTab: tab});
+                    }}/>
+                  }
+                  {tab}
+                </Tab>)}
+            </Tabs>
+          }
           {
             this.state.confirmDeleteTooltipPos &&
             <Tooltip content={<div>
@@ -94,7 +97,7 @@ export default class WidgetTitleMenu extends Component {
               </div>
             } noTriangle style={this.state.editWidgetSizeTooltipPos} tooltipStyle={{width: 350}} position="s" />
           }
-          <div>
+          <div style={this.props.hideTabbar ? {position: 'absolute', right: -16, zIndex: 5} : {}}>
             <IconButton id={'widget-title-menu-' + curId} name="more_vert" ripple/>
             <Menu target={'widget-title-menu-' + curId++} ripple align="right" valign="bottom">
               <li className="mdl-menu__special-item">
@@ -106,6 +109,7 @@ export default class WidgetTitleMenu extends Component {
                 </FABButton>
               </li>
               <MenuItem onClick={() => this.setState({...this.initialState, editWidgetSizeTooltipPos: this.calcTooltipPosition(findDOMNode(this.refs.titleMenu), 's')})}>Edit widget size</MenuItem>
+              <MenuItem onClick={() => toggleTabbar(this.props.dispatch, this.props.widgetKey)}>{this.props.hideTabbar ? 'Show' : 'Hide'} Tabbar</MenuItem>
               <MenuItem onClick={() => this.setState({...this.initialState, confirmDeleteTooltipPos: this.calcTooltipPosition(findDOMNode(this.refs.titleMenu), 's')})}><h6 style={{margin: 0, lineHeight: '48px', color: 'red'}}>Delete widget !!!</h6></MenuItem>
             </Menu>
           </div>

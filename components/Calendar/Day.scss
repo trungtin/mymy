@@ -1,0 +1,33 @@
+@import "../../scss/base";
+
+.calendar-day, .calendar-weekday {
+  display: inline-block;
+  text-align: center;
+  width: calc(100% / 7);
+  &>span {
+    display: inline-block;
+    line-height: 3rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+  }
+}
+
+.calendar-day{
+  cursor: pointer;
+  &.calendar-day--blur {
+    color: $text-color-low-contrast;
+  }
+  &.calendar-day--selected {
+    &>span, &>span:hover {
+      background-color: $color-primary;
+      color: $text-color-white;
+    }
+  }
+  &:not(.calendar-day--blur) {
+    &>span:hover {
+      background-color: $color-primary-light;
+      color: $text-color-low-contrast;
+    }
+  }
+}

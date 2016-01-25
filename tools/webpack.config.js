@@ -36,6 +36,10 @@ const config = {
     publicPath: '/',
     sourcePrefix: '  ',
   },
+  resolve: {
+    root: [path.resolve(__dirname, '..')],
+    extensions: ['', '.js'],
+  },
   cache: false,
   debug: DEBUG,
   stats: {
@@ -78,8 +82,12 @@ const config = {
   },
   postcss: function plugins(bundler) {
     return [
-      require('postcss-import')({ addDependencyTo: bundler }),
-      require('precss')(),
+      // require('postcss-import')({ addDependencyTo: bundler }),
+      require('precss')({
+        import: {
+          extension: 'scss',
+        },
+      }),
       require('autoprefixer')({
         browsers: AUTOPREFIXER_BROWSERS,
       }),
@@ -165,7 +173,7 @@ const pagesConfig = merge({}, config, {
     __filename: false,
     __dirname: false,
   },
-  externals: /^[a-z][a-z\.\-\/0-9]*$/i,
+  externals: /^(?!components\/)(?!containers\/)(?!core\/)[a-z][a-z\.\-\/0-9]*$/i,
   plugins: config.plugins.concat([
     new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
     new webpack.DefinePlugin({

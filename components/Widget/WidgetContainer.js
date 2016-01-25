@@ -195,7 +195,6 @@ export default class WidgetContainer extends Component {
             </Cell>
           </Tooltip>
         </Grid>
-
         <Modal modalOpen={this.state.modalOpen} closeModal={::this.closeModal} modalContent={modalContentEl}/>
       </div>
     );

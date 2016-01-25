@@ -28,5 +28,13 @@ export default async function createStore() {
   // const store = storeCreateFunc(reducer, storeInitialState);
   const store = finalCreateStore(reducer, storeInitialState);
 
+  if (module.hot) {
+    // Enable Webpack hot module replacement for reducers
+    module.hot.accept('./modules/reducer', () => {
+      const nextRootReducer = require('./modules/reducer');
+      store.replaceReducer(nextRootReducer);
+    });
+  }
+
   return store;
 }

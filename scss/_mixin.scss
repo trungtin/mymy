@@ -1,0 +1,4 @@
+@define-mixin glow-effect {
+  text-shadow: -1px 1px 20px #ffc, 1px -1px 20px #fff;
+  transition: text-shadow 250ms linear 0s;
+}

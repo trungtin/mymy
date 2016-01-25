@@ -4,12 +4,16 @@ import WidgetPanel from './WidgetPanel';
 import {Card, Spinner} from 'react-mdl';
 import fetchFeed from './lib/fetchFeed';
 
+const othersComponent = new Map();
+othersComponent.set('calendar', '../Calendar/Calendar');
+
 export default class Widget extends Component {
   static propTypes = {
     data: PropTypes.object,
     widgetKey: PropTypes.string.isRequired,
     openModal: PropTypes.func.isRequired,
     size: PropTypes.array.isRequired,
+    hideTabbar: PropTypes.bool
   }
   constructor() {
     super();
@@ -39,6 +43,11 @@ export default class Widget extends Component {
         this._fetchFeed(widgetPanelContent.data.url, tabId);
       } else if (widgetPanelContent.type === 'link' || (widgetPanelContent.type === 'feed' && widgetPanelContent.data.__html)) {
         this.setState({widgetPanelContent, tabId, fetchingFeed: false});
+      } else if (othersComponent.get(widgetPanelContent.type)) {
+        require.ensure([], require => {
+          const _Component = require('../Calendar/Calendar');
+          this.setState({widgetPanelContent: _Component, tabId, fetchingFeed: false});
+        });
       }
     }
   }
@@ -60,14 +69,17 @@ export default class Widget extends Component {
       <Card shadow={0} style={{overflow: 'visible'}}>
         <WidgetTitleMenu tabs={this.props.data && Object.keys(this.props.data)}
           onTabChange={(tabId) => this._updatePanelContent(tabId)} openModal={(event, modalContent) => this.props.openModal(event, modalContent, this.props.widgetKey, null)}
-          widgetKey={this.props.widgetKey} size={this.props.size}/>
+          widgetKey={this.props.widgetKey} size={this.props.size} hideTabbar={this.props.hideTabbar}/>
         { this.state.fetchingFeed &&
           <div style={{textAlign: 'center'}}><Spinner /></div>
         }
         { !this.state.fetchingFeed && this.props.data && !!Object.keys(this.props.data).length &&
-          <WidgetPanel content={this.state.widgetPanelContent}
-            openModal={(event, modalContent, tabKey) => this.props.openModal(event, modalContent, this.props.widgetKey, tabKey)}
-            tabKey={this.props.data && Object.keys(this.props.data)[this.state.tabId]} />
+          (typeof this.state.widgetPanelContent === 'function' &&
+            <this.state.widgetPanelContent /> ||
+            <WidgetPanel content={this.state.widgetPanelContent}
+              openModal={(event, modalContent, tabKey) => this.props.openModal(event, modalContent, this.props.widgetKey, tabKey)}
+              tabKey={this.props.data && Object.keys(this.props.data)[this.state.tabId]} />
+          )
         }
       </Card>
     );

@@ -2,6 +2,7 @@ import update from 'react-addons-update';
 import union from 'lodash.union';
 
 const EDIT_SIZE = 'mymy/widget/EDIT_SIZE';
+const TOGGLE_TABBAR = 'mymy/widget/TOGGLE_TABBAR';
 const ADD_WIDGET = 'mymy/widget/ADD_WIDGET';
 const ADD_LINK = 'mymy/widget/ADD_LINK';
 const ADD_TAB = 'mymy/widget/ADD_TAB';
@@ -36,6 +37,9 @@ export default function widget(state = initialState, action = {}) {
       return state;
     }
     return update(state, {error: {$set: null}, data: {[action.target]: {size: {$set: action.newSize}}}});
+
+  case TOGGLE_TABBAR:
+    return update(state, {error: {$set: null}, data: {[action.target]: {hideTabbar: {$set: !state.data[action.target].hideTabbar}}}});
 
   case ADD_LINK:
     return update(state, {error: {$set: null}, data: {[action.target]: {data: {[action.targetTab]: {data: {$apply: (array) => union(array, action.data)}}}}}});
@@ -105,11 +109,21 @@ export default function widget(state = initialState, action = {}) {
 /**
  *
  * Edit widget size
- * @params{data:number} +10/-10 for increase/decrease one row, +1/-1 for increase/decrease one collumn
+ * @params{data:number} +10/-10 for increase/decrease one row, +1/-1 for increase/decrease one collumn.
  *
  */
 export function editSize(target, newSize) {
   return { type: EDIT_SIZE, target, newSize};
+}
+
+/**
+ *
+ * Toggle tabbar
+ * @params{target:string} widget want to toggle.
+ *
+ */
+export function toggleTabbar(target) {
+  return { type: TOGGLE_TABBAR, target};
 }
 
 /**

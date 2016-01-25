@@ -93,3 +93,17 @@ export function editWidgetSize(dispatch, widget, newSize) {
     dispatch(widgetActions.editSize(widget, newSize));
   }).catch(err => dispatch(widgetActions.databaseError(err)));
 }
+
+export function toggleTabbar(dispatch, widget) {
+  db && db.get('widget').then(doc => {
+    doc.data[widget].hideTabbar = !doc.data[widget].hideTabbar;
+    return db.put(doc);
+  }).then(response => {
+    if (response.ok !== true) {
+      throw Error('Error while toggle tabbar');
+    }
+  }).then(() => {
+    dispatch(widgetActions.toggleTabbar(widget));
+  }).catch(err => dispatch(widgetActions.databaseError(err)));
+}
+

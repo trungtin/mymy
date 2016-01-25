@@ -1,0 +1,74 @@
+@import "../../scss/base";
+
+.calendar-header {
+  color: $text-color-white;
+  background-color: $color-primary;
+  padding: 1.2rem;
+  .calendar-header--year {
+    color: $text-color-low-contrast;
+    font-size: $font-size-small;
+    margin-bottom: 8px;
+  }
+  .calendar-header--date {
+    font-weight: 500;
+    font-size: $font-size-extra;
+    margin-bottom: 12px;
+  }
+}
+
+.calendar-body {
+  position: relative;
+}
+
+.calendar-selector {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+  &>i {
+    margin: 0.3rem 2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    &:hover {
+      background-color: $color-divider;
+    }
+    &:active {
+      transform: scale(0.85);
+    }
+  }
+}
+
+.calendar-event-count-badge {
+  background-color: $color-accent;
+  font-size: $font-size-tiny;
+  border-radius: 50%;
+  color: $text-color-white;
+  display: inline-block;
+  width: 2.2rem;
+  height: 2.2rem;
+  line-height: 2.2rem;
+  text-align: center;
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+.calendar-event {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0.3);
+  transform: translateX(0);
+  opacity: 1;
+  z-index: 3;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.calendar-event-enter, .calendar-event-leave {
+  transform: translateX(70%);
+  opacity: 0;
+}

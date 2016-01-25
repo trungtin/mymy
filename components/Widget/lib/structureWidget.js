@@ -11,7 +11,7 @@ function distribute(widgets, thisArg) {
     const col = widgets[widgetKey].size % 10;
     const row = Math.floor(widgets[widgetKey].size / 10);
     return {
-      el: (<Widget data={widgets[widgetKey].data} widgetKey={widgetKey} openModal={::thisArg.openModal} key={`widget-${index}`} size={[col, row]}/>),
+      el: (<Widget data={widgets[widgetKey].data} widgetKey={widgetKey} openModal={::thisArg.openModal} key={`widget-${index}`} size={[col, row]} hideTabbar={widgets[widgetKey].hideTabbar}/>),
       col, row,
     };
   });

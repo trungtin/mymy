@@ -1,0 +1,24 @@
+@import '../../../scss/base';
+
+.event-panel {
+  width: 70%;
+  height: 100%;
+  float: right;
+  background-color: #FFF;  
+}
+
+.event-list {
+  ul {
+    list-style: none;
+  }
+}
+
+.event-list--name {
+  font-size: 1.5rem;
+  border-left: solid 1px;
+}
+
+.event-list--description {
+    font-size: 1.2rem;
+
+}

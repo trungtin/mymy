@@ -1,5 +1,4 @@
 import React, {PropTypes, Component} from 'react';
-import Rx from 'rx-lite';
 import {Textfield, Button} from 'react-mdl';
 import {findDOMNode} from 'react-dom';
 

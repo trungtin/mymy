@@ -39,7 +39,7 @@ export default (feed, index, onFeedClick, feedHomepage, prependIcon, appendIcon)
       }
     </section>
     <div className="feed-post__out-link">
-      <a href="#"><Tooltip label="Save"><Icon name="bookmark_border" /></Tooltip></a>
+      <a href="#" onClick={() => console.log('save')} ><Tooltip label="Save"><div><Icon name="bookmark_border" /></div></Tooltip></a>
       <a href={(!feedHomepage || ~feed.guid.indexOf(feedHomepage)) && feed.guid || '//' +
         (feed.guid.startsWith('/') && feedHomepage.slice(0, -1) + feed.guid || feedHomepage + feed.guid)}
         ><Tooltip label="Direct link"><Icon name="launch" /></Tooltip></a>
